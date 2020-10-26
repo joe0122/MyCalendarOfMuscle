@@ -1,0 +1,462 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D8190BB32542B52400FE333E /* CheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8190BB22542B52400FE333E /* CheckViewController.swift */; };
+		D85E36DE253D885300EBAFC9 /* ImageList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85E36DD253D885300EBAFC9 /* ImageList.swift */; };
+		D85E36E2253D896800EBAFC9 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85E36E1253D896800EBAFC9 /* AddViewController.swift */; };
+		D85E36E5253D897900EBAFC9 /* NextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85E36E4253D897900EBAFC9 /* NextViewController.swift */; };
+		D85E36E8253D898800EBAFC9 /* CountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85E36E7253D898800EBAFC9 /* CountViewController.swift */; };
+		D8CC2EA6253D83B6006F9D36 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CC2EA5253D83B6006F9D36 /* AppDelegate.swift */; };
+		D8CC2EA8253D83B6006F9D36 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CC2EA7253D83B6006F9D36 /* SceneDelegate.swift */; };
+		D8CC2EAA253D83B6006F9D36 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8CC2EA9253D83B6006F9D36 /* ViewController.swift */; };
+		D8CC2EAD253D83B6006F9D36 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8CC2EAB253D83B6006F9D36 /* Main.storyboard */; };
+		D8CC2EAF253D83B7006F9D36 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8CC2EAE253D83B7006F9D36 /* Assets.xcassets */; };
+		D8CC2EB2253D83B7006F9D36 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8CC2EB0253D83B7006F9D36 /* LaunchScreen.storyboard */; };
+		E6A903EF4D7AFF650373499E /* Pods_MyCalendarOfMuscle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA4A185FE516BFAC68440991 /* Pods_MyCalendarOfMuscle.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1FA89A494AE92F5ADE795F32 /* Pods-MyCalendarOfMuscle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyCalendarOfMuscle.release.xcconfig"; path = "Target Support Files/Pods-MyCalendarOfMuscle/Pods-MyCalendarOfMuscle.release.xcconfig"; sourceTree = "<group>"; };
+		705FF00D0C82759E798FD2A0 /* Pods-MyCalendarOfMuscle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyCalendarOfMuscle.debug.xcconfig"; path = "Target Support Files/Pods-MyCalendarOfMuscle/Pods-MyCalendarOfMuscle.debug.xcconfig"; sourceTree = "<group>"; };
+		CA4A185FE516BFAC68440991 /* Pods_MyCalendarOfMuscle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyCalendarOfMuscle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D8190BB22542B52400FE333E /* CheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckViewController.swift; sourceTree = "<group>"; };
+		D85E36DD253D885300EBAFC9 /* ImageList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageList.swift; sourceTree = "<group>"; };
+		D85E36E1253D896800EBAFC9 /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
+		D85E36E4253D897900EBAFC9 /* NextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextViewController.swift; sourceTree = "<group>"; };
+		D85E36E7253D898800EBAFC9 /* CountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountViewController.swift; sourceTree = "<group>"; };
+		D8CC2EA2253D83B6006F9D36 /* MyCalendarOfMuscle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyCalendarOfMuscle.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D8CC2EA5253D83B6006F9D36 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D8CC2EA7253D83B6006F9D36 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		D8CC2EA9253D83B6006F9D36 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D8CC2EAC253D83B6006F9D36 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D8CC2EAE253D83B7006F9D36 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D8CC2EB1253D83B7006F9D36 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D8CC2EB3253D83B7006F9D36 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D8CC2E9F253D83B6006F9D36 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E6A903EF4D7AFF650373499E /* Pods_MyCalendarOfMuscle.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		35324B11DF359DAE43CE8668 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CA4A185FE516BFAC68440991 /* Pods_MyCalendarOfMuscle.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CBAA39251982B67A2A35D061 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				705FF00D0C82759E798FD2A0 /* Pods-MyCalendarOfMuscle.debug.xcconfig */,
+				1FA89A494AE92F5ADE795F32 /* Pods-MyCalendarOfMuscle.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		D85E36C3253D846100EBAFC9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D85E36DD253D885300EBAFC9 /* ImageList.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D85E36C6253D846700EBAFC9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D8CC2EAB253D83B6006F9D36 /* Main.storyboard */,
+				D8CC2EAE253D83B7006F9D36 /* Assets.xcassets */,
+				D8CC2EB0253D83B7006F9D36 /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D85E36C9253D846C00EBAFC9 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				D8CC2EA5253D83B6006F9D36 /* AppDelegate.swift */,
+				D8CC2EA7253D83B6006F9D36 /* SceneDelegate.swift */,
+				D8CC2EA9253D83B6006F9D36 /* ViewController.swift */,
+				D8190BB22542B52400FE333E /* CheckViewController.swift */,
+				D85E36E1253D896800EBAFC9 /* AddViewController.swift */,
+				D85E36E4253D897900EBAFC9 /* NextViewController.swift */,
+				D85E36E7253D898800EBAFC9 /* CountViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		D8CC2E99253D83B6006F9D36 = {
+			isa = PBXGroup;
+			children = (
+				D8CC2EA4253D83B6006F9D36 /* MyCalendarOfMuscle */,
+				D8CC2EA3253D83B6006F9D36 /* Products */,
+				CBAA39251982B67A2A35D061 /* Pods */,
+				35324B11DF359DAE43CE8668 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		D8CC2EA3253D83B6006F9D36 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D8CC2EA2253D83B6006F9D36 /* MyCalendarOfMuscle.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D8CC2EA4253D83B6006F9D36 /* MyCalendarOfMuscle */ = {
+			isa = PBXGroup;
+			children = (
+				D85E36C3253D846100EBAFC9 /* Model */,
+				D85E36C6253D846700EBAFC9 /* View */,
+				D85E36C9253D846C00EBAFC9 /* Controller */,
+				D8CC2EB3253D83B7006F9D36 /* Info.plist */,
+			);
+			path = MyCalendarOfMuscle;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D8CC2EA1253D83B6006F9D36 /* MyCalendarOfMuscle */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D8CC2EB6253D83B7006F9D36 /* Build configuration list for PBXNativeTarget "MyCalendarOfMuscle" */;
+			buildPhases = (
+				1CD528F569033EEF03BF423D /* [CP] Check Pods Manifest.lock */,
+				D8CC2E9E253D83B6006F9D36 /* Sources */,
+				D8CC2E9F253D83B6006F9D36 /* Frameworks */,
+				D8CC2EA0253D83B6006F9D36 /* Resources */,
+				DCA6F100B553D2AA44174A4C /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MyCalendarOfMuscle;
+			productName = MyCalendarOfMuscle;
+			productReference = D8CC2EA2253D83B6006F9D36 /* MyCalendarOfMuscle.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D8CC2E9A253D83B6006F9D36 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1200;
+				LastUpgradeCheck = 1200;
+				TargetAttributes = {
+					D8CC2EA1253D83B6006F9D36 = {
+						CreatedOnToolsVersion = 12.0.1;
+					};
+				};
+			};
+			buildConfigurationList = D8CC2E9D253D83B6006F9D36 /* Build configuration list for PBXProject "MyCalendarOfMuscle" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D8CC2E99253D83B6006F9D36;
+			productRefGroup = D8CC2EA3253D83B6006F9D36 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D8CC2EA1253D83B6006F9D36 /* MyCalendarOfMuscle */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D8CC2EA0253D83B6006F9D36 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D8CC2EB2253D83B7006F9D36 /* LaunchScreen.storyboard in Resources */,
+				D8CC2EAF253D83B7006F9D36 /* Assets.xcassets in Resources */,
+				D8CC2EAD253D83B6006F9D36 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1CD528F569033EEF03BF423D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MyCalendarOfMuscle-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DCA6F100B553D2AA44174A4C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MyCalendarOfMuscle/Pods-MyCalendarOfMuscle-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MyCalendarOfMuscle/Pods-MyCalendarOfMuscle-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MyCalendarOfMuscle/Pods-MyCalendarOfMuscle-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D8CC2E9E253D83B6006F9D36 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D85E36E2253D896800EBAFC9 /* AddViewController.swift in Sources */,
+				D8190BB32542B52400FE333E /* CheckViewController.swift in Sources */,
+				D85E36E5253D897900EBAFC9 /* NextViewController.swift in Sources */,
+				D8CC2EAA253D83B6006F9D36 /* ViewController.swift in Sources */,
+				D85E36DE253D885300EBAFC9 /* ImageList.swift in Sources */,
+				D8CC2EA6253D83B6006F9D36 /* AppDelegate.swift in Sources */,
+				D85E36E8253D898800EBAFC9 /* CountViewController.swift in Sources */,
+				D8CC2EA8253D83B6006F9D36 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		D8CC2EAB253D83B6006F9D36 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D8CC2EAC253D83B6006F9D36 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D8CC2EB0253D83B7006F9D36 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D8CC2EB1253D83B7006F9D36 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D8CC2EB4253D83B7006F9D36 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D8CC2EB5253D83B7006F9D36 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D8CC2EB7253D83B7006F9D36 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 705FF00D0C82759E798FD2A0 /* Pods-MyCalendarOfMuscle.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = TKJTGXN688;
+				INFOPLIST_FILE = MyCalendarOfMuscle/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yajima.MyCalendarOfMuscle;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		D8CC2EB8253D83B7006F9D36 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1FA89A494AE92F5ADE795F32 /* Pods-MyCalendarOfMuscle.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = TKJTGXN688;
+				INFOPLIST_FILE = MyCalendarOfMuscle/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yajima.MyCalendarOfMuscle;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D8CC2E9D253D83B6006F9D36 /* Build configuration list for PBXProject "MyCalendarOfMuscle" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D8CC2EB4253D83B7006F9D36 /* Debug */,
+				D8CC2EB5253D83B7006F9D36 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D8CC2EB6253D83B7006F9D36 /* Build configuration list for PBXNativeTarget "MyCalendarOfMuscle" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D8CC2EB7253D83B7006F9D36 /* Debug */,
+				D8CC2EB8253D83B7006F9D36 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D8CC2E9A253D83B6006F9D36 /* Project object */;
+}
