@@ -65,7 +65,7 @@ class CheckViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSou
         
         //ラベルの詳細
         menuLabel2.layer.frame = CGRect(x: 0, y: calView2.frame.size.height + naviBarHeight! + statusHeight, width: screenWidth, height: 20)
-        menuLabel2.text = "\(selectDay.dropFirst(5))日のトレーニングメニュー"
+        menuLabel2.text = "日のトレーニングメニュー"
         menuLabel2.textAlignment = .center
         menuLabel2.textColor = .white
         menuLabel2.font = .boldSystemFont(ofSize: 15)
@@ -127,6 +127,8 @@ class CheckViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSou
         formatter.dateStyle = .short
         formatter.timeStyle = .none
         selectDay = formatter.string(from: date)
+        
+        menuLabel2.text = "\(selectDay.dropFirst(5))日のトレーニングメニュー"
         
         dayPosition1.removeAll()
         dayPosition2.removeAll()
