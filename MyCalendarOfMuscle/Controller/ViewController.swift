@@ -124,7 +124,7 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
         formatter.dateStyle = .short
         formatter.timeStyle = .none
         selectDay = formatter.string(from: today)
-        print(selectDay)
+        //print(selectDay)
         
         //今日の日付のデータがなければ保存する
         if userDefaults.stringArray(forKey: selectDay) == nil{
@@ -182,7 +182,7 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
         formatter.dateStyle = .short
         formatter.timeStyle = .none
         selectDay = formatter.string(from: date)
-        print(selectDay)
+        //print(selectDay)
         
         //日付を値渡しする
         let checkVC = self.storyboard?.instantiateViewController(withIdentifier: "checkVC") as! CheckViewController
@@ -415,7 +415,7 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
                     (action: UIAlertAction!) in
                     var a = self.userDefaults.stringArray(forKey: self.selectDay)!
                     a.remove(at: a.firstIndex(of: position)!)
-                    print(a)
+                    //print(a)
                     self.userDefaults.set(a, forKey: self.selectDay)
                     self.cal.reloadData()
                 })
@@ -449,7 +449,7 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
                 (action: UIAlertAction!) in
                 var a = self.userDefaults.stringArray(forKey: self.selectDay)!
                 a.remove(at: a.firstIndex(of: position)!)
-                print(a)
+                //print(a)
                 self.userDefaults.set(a, forKey: self.selectDay)
                 self.cal.reloadData()
             })

@@ -128,7 +128,11 @@ class CheckViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSou
         formatter.timeStyle = .none
         selectDay = formatter.string(from: date)
         
+        //シュミレーターと実機でselectDayの取り方が変わる
+        //コメントアウトしてる方は実機で正しく動く方
         menuLabel2.text = "\(selectDay.dropFirst(5))日のトレーニングメニュー"
+        
+        //menuLabel2.text = "\(selectDay.dropLast(3))日のトレーニングメニュー"
         
         dayPosition1.removeAll()
         dayPosition2.removeAll()
@@ -228,7 +232,7 @@ class CheckViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSou
             if dayPosiMenu2.count == 0{
                 cell.textLabel?.text = "登録なし"
             }else{
-                print(dayPosiMenu2)
+                //print(dayPosiMenu2)
                 cell.textLabel?.text = dayPosiMenu2[indexPath.row]
             }
         }else if indexPath.section == 2{
@@ -490,8 +494,8 @@ class CheckViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSou
     func sectionCreate(){
         
         let a = dayMenu
-        print(a)
-        print(a.count)
+        //print(a)
+        //print(a.count)
         sectionArray.removeAll()
         
         /*セクションを作るのだが、どうしてもセクションの順とその日のトレーニング画像の順と揃えるため
@@ -501,7 +505,7 @@ class CheckViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSou
         case 0:
             sectionArray = [""]
         case 1:
-            print("1だよ")
+            //print("1だよ")
             if a.contains("腕"){
                 sectionArray.append("腕")
                 dayPosition1 = "腕"
@@ -525,7 +529,7 @@ class CheckViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSou
                 dayPosition1 = "有"
             }
         case 2:
-            print("2だよ")
+            //print("2だよ")
             if a.contains("腕"){
                 if a.contains("肩"){
                     sectionArray.append("腕")
@@ -643,7 +647,7 @@ class CheckViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSou
                 dayPosition2 = "有"
                 }
         case 3:
-            print("3だよ")
+            //print("3だよ")
             if a.contains("腕") && a.contains("肩"){
                 if a.contains("胸"){
                     sectionArray.append("腕")

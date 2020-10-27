@@ -128,6 +128,12 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             let firstText = NSMutableAttributedString(string: traningNameLabel.text!)
             firstText.addAttribute(.foregroundColor, value: UIColor.systemOrange, range: NSMakeRange(0, 3))
             traningNameLabel.attributedText = firstText
+            
+            setField.placeholder = "入力しない"
+            setField.isEnabled = false
+            weightField.placeholder = "入力しない"
+            weightField.isEnabled = false
+            nameField.placeholder = "距離や時間も入力"
         }
         
         
