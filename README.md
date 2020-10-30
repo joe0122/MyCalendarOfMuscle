@@ -10,7 +10,7 @@
 </div>
 
 #### 日々の筋トレをカレンダーで月ごとに確認できるiOSアプリケーション
-#### https://apps.apple.com/jp/app/%E7%AD%8B%E3%83%88%E3%83%AC%E3%82%AB%E3%83%AC%E3%83%B3%E3%83%80%E3%83%BC/id1537543591
+https://apps.apple.com/jp/app/%E7%AD%8B%E3%83%88%E3%83%AC%E3%82%AB%E3%83%AC%E3%83%B3%E3%83%80%E3%83%BC/id1537543591
 ## ・アプリケーションの機能、技術一覧
 
 
