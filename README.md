@@ -15,10 +15,10 @@ https://apps.apple.com/jp/app/%E7%AD%8B%E3%83%88%E3%83%AC%E3%82%AB%E3%83%AC%E3%8
 ## ・アプリケーションの機能、技術一覧
 
 #### ・カレンダーを表示する機能
-・cocoapodsでFSCalendarを使用
+  ・cocoapodsでFSCalendarを使用
 
 #### ・カレンダーに日本の休日を反映させる機能
-・cocoapodsでCalculateCalendarLogicを使い、日本の休日判定を行う
+  ・cocoapodsでCalculateCalendarLogicを使い、日本の休日判定を行う
 
 #### ・ボタンタップで日付の下にトレーニングの画像を表示する機能
 ・1日のトレーニングの上限を３つに決め、そこから７つのトレーニングを選択するので全６３通りのトレーニングの組み合わせがあり、それらの組み合わせの画像をAssetsに入れておき、その日付で保存されているデータの値で条件分岐させ、対応する画像を返す。
