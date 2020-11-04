@@ -98,6 +98,7 @@ class CheckViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSou
         self.view.addSubview(tableView)
 
         tableView.frame = CGRect(x: 0, y: statusHeight + naviBarHeight! + screenHeight/2 + 20, width: screenWidth, height: screenHeight - (statusHeight + naviBarHeight! + screenHeight/2 + 20 + tabHeight!))
+        
         tableView.dataSource = self
         tableView.delegate = self
         
@@ -129,7 +130,7 @@ class CheckViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSou
         selectDay = formatter.string(from: date)
         
         //シュミレーターと実機でselectDayの取り方が変わる
-        //コメントアウトしてる方は実機で正しく動く方
+        //コメントアウトしてる方はシュミレータで正しく動く方
         menuLabel2.text = "\(selectDay.dropFirst(5))日のトレーニングメニュー"
         
         //menuLabel2.text = "\(selectDay.dropLast(3))日のトレーニングメニュー"
@@ -137,12 +138,14 @@ class CheckViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSou
         dayPosition1.removeAll()
         dayPosition2.removeAll()
         dayPosition3.removeAll()
+        
         dayPosiMenu1.removeAll()
         dayPosiMenu2.removeAll()
         dayPosiMenu3.removeAll()
         
         dayMenu.removeAll()
         
+        //nil判定
         if userDefaults.stringArray(forKey: selectDay) != nil{
             dayMenu = userDefaults.stringArray(forKey: selectDay)!
         }else if userDefaults.stringArray(forKey: selectDay) == nil{
@@ -150,6 +153,7 @@ class CheckViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSou
             userDefaults.set(dayMenu, forKey: selectDay)
         }
         
+        //この関数でメニューの詳細を管理するString配列,tableViewのsectionを作成
         sectionCreate()
         
         switch dayMenu.count {
@@ -494,8 +498,6 @@ class CheckViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSou
     func sectionCreate(){
         
         let a = dayMenu
-        //print(a)
-        //print(a.count)
         sectionArray.removeAll()
         
         /*セクションを作るのだが、どうしてもセクションの順とその日のトレーニング画像の順と揃えるため

@@ -64,7 +64,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         
         setLabel.frame = CGRect(x: 25, y: screenHeight/6 + 105, width: screenWidth/5, height: 30)
         setField.frame = CGRect(x: screenWidth/5 + 25, y: screenHeight/6 + 100, width: screenWidth/3, height: 40)
-        countLabel.frame = CGRect(x: screenWidth/5 + screenWidth/3 + 30, y: screenHeight/6 + 110, width: 25, height: 20)
+        countLabel.frame = CGRect(x: screenWidth/5 + screenWidth/3 + 30, y: screenHeight/6 + 110, width: 35, height: 20)
         
         addButton.frame = CGRect(x: screenWidth - 100, y: screenHeight/6 + 55, width: 85, height: 40)
         tourokuButton.frame = CGRect(x: screenWidth/3, y:  screenHeight/6 + 150, width: 130, height: 45)
@@ -93,7 +93,8 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             traningNameLabel.attributedText = firstText
             
         }else if pushMenu == "肩"{
-            traningNameLabel.text = "肩トレのメニュー(\(selectDay.dropFirst(5)))"
+            traningNameLabel.text = //"肩トレのメニュー(\(selectDay.dropFirst(5)))"
+                "肩トレのメニュー(10/20)"
             traningNameLabel.font = UIFont.boldSystemFont(ofSize: 18)
             let firstText = NSMutableAttributedString(string: traningNameLabel.text!)
             firstText.addAttribute(.foregroundColor, value: UIColor.systemGreen, range: NSMakeRange(0, 1))
@@ -129,14 +130,16 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             firstText.addAttribute(.foregroundColor, value: UIColor.systemOrange, range: NSMakeRange(0, 3))
             traningNameLabel.attributedText = firstText
             
-            setField.placeholder = "入力しない"
-            setField.isEnabled = false
-            weightField.placeholder = "入力しない"
-            weightField.isEnabled = false
-            nameField.placeholder = "距離や時間も入力"
+            weightField.placeholder = "任意で入力"
+            weightLabel.textAlignment = .center
+            weightLabel.text = "距離"
+            kgLabel.text = "キロ"
+            
+            setField.placeholder = "任意で入力"
+            setLabel.text = "時間"
+            setLabel.textAlignment = .center
+            countLabel.text = "分"
         }
-        
-        
         
     }
     
@@ -150,24 +153,49 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         let cell = UITableViewCell(style: .default, reuseIdentifier: "")
         cell.textLabel?.text = menuArray[indexPath.row]
         cell.backgroundColor = .clear
+        
+        let a = UserDefaults.standard.stringArray(forKey: "\(pushMenu)\(selectDay)")
+        
+        //すでに選択されていたトレーニングに予めチェックマークをつけておく
+        if a != nil{
+            for i in 0..<a!.count{
+                if cell.textLabel?.text == a![i]{
+                    cell.accessoryType = .checkmark
+                    cell.backgroundColor = .clear
+                    selectMenu.append((cell.textLabel?.text)!)
+                }
+            }
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
-            cell?.accessoryType = .checkmark
-            cell?.backgroundColor = .clear
-        selectMenu.append((cell?.textLabel?.text)!)
-        print(selectMenu)
         
+        if cell?.accessoryType == .checkmark{
+            cell?.accessoryType = .none
+            cell?.selectionStyle = .none
+            selectMenu.remove(at: selectMenu.firstIndex(of: (cell?.textLabel?.text)!)!)
+        }else{
+            cell?.accessoryType = .checkmark
+            cell?.selectionStyle = .none
+            selectMenu.append((cell?.textLabel?.text)!)
+        }
+                
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
+        
+        if cell?.accessoryType == .checkmark{
             cell?.accessoryType = .none
-            cell?.backgroundColor = .clear
-        selectMenu.remove(at: selectMenu.firstIndex(of: (cell?.textLabel?.text)!)!)
-        print(selectMenu)
+            cell?.selectionStyle = .none
+            selectMenu.remove(at: selectMenu.firstIndex(of: (cell?.textLabel?.text)!)!)
+        }else{
+            cell?.accessoryType = .checkmark
+            cell?.selectionStyle = .none
+            selectMenu.append((cell?.textLabel?.text)!)
+        }
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -182,26 +210,47 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
     @IBAction func addAction(_ sender: Any) {
                 
         if nameField.text != ""{
-            //すでに登録されているメニューを持ってくる
-            if UserDefaults.standard.stringArray(forKey: pushMenu) != nil{
-                menuArray = UserDefaults.standard.stringArray(forKey: pushMenu)!
-            }
-            //重量とセット数が入力されている場合
-            if weightField.text != "" && setField.text != ""{
-                menuArray.append("\(String(describing: nameField.text!)) \(String(describing: weightField.text!))キロ \(String(describing: setField.text!))回")
-                UserDefaults.standard.set(menuArray, forKey: pushMenu)
-                
-            //メニューのみ入力されている場合は単位のキロと回を付けないようにする
-            }else if weightField.text == "" && setField.text == ""{
-                menuArray.append("\(String(describing: nameField.text!)) \(String(describing: weightField.text!)) \(String(describing: setField.text!))")
-                UserDefaults.standard.set(menuArray, forKey: pushMenu)
-
+            //有酸素の場合だけ単位が違うので、分岐
+            if pushMenu == "有"{
+                if weightField.text != "" && setField.text != ""{
+                    menuArray.append("\(String(describing: nameField.text!)) \(String(describing: weightField.text!))キロ \(String(describing: setField.text!))分")
+                    UserDefaults.standard.set(menuArray, forKey: pushMenu)
+                }else if weightField.text != "" && setField.text == ""{
+                    menuArray.append("\(String(describing: nameField.text!)) \(String(describing: weightField.text!))キロ")
+                    UserDefaults.standard.set(menuArray, forKey: pushMenu)
+                }else if weightField.text == "" && setField.text != ""{
+                    menuArray.append("\(String(describing: nameField.text!)) \(String(describing: setField.text!))分")
+                    UserDefaults.standard.set(menuArray, forKey: pushMenu)
+                }else{
+                    menuArray.append("\(String(describing: nameField.text!))")
+                    UserDefaults.standard.set(menuArray, forKey: pushMenu)
+                }
+            //有酸素以外の場合
+            }else{
+                //重量、セット数ともに値が入力された時
+                if weightField.text != "" && setField.text != ""{
+                    menuArray.append("\(String(describing: nameField.text!)) \(String(describing: weightField.text!))キロ \(String(describing: setField.text!))回")
+                    UserDefaults.standard.set(menuArray, forKey: pushMenu)
+                //重量のみが入力された時
+                }else if weightField.text != "" && setField.text == ""{
+                    menuArray.append("\(String(describing: nameField.text!)) \(String(describing: weightField.text!))キロ")
+                    UserDefaults.standard.set(menuArray, forKey: pushMenu)
+                //セット数のみが入力された時
+                }else if weightField.text == "" && setField.text != ""{
+                    menuArray.append("\(String(describing: nameField.text!)) \(String(describing: setField.text!))回")
+                    UserDefaults.standard.set(menuArray, forKey: pushMenu)
+                //メニューのみが入力された時
+                }else{
+                    menuArray.append("\(String(describing: nameField.text!))")
+                    UserDefaults.standard.set(menuArray, forKey: pushMenu)
+                }
             }
             
         //メニューが入力されていない時のアラート
         }else{
             Alert()
         }
+        
         nameField.text = ""
         weightField.text = ""
         setField.text = ""
@@ -211,6 +260,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         setField.endEditing(true)
 
         tableView.reloadData()
+        
     }
     @IBAction func touroku(_ sender: Any) {
         UserDefaults.standard.set(selectMenu, forKey: "\(pushMenu)\(selectDay)")
