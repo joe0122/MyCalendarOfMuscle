@@ -40,6 +40,8 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
     
     let screenWidth = UIScreen.main.bounds.width
     let screenHeight = UIScreen.main.bounds.height
+    
+    var selectArray = [String]()
             
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -173,7 +175,7 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
             navigationItem.title = userDefaults.string(forKey: "calName")
         }
         self.tabBarController?.tabBar.isHidden = false
-
+        
     }
     
     
@@ -184,10 +186,11 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
         selectDay = formatter.string(from: date)
         //print(selectDay)
         
-        //日付を値渡しする
-        let checkVC = self.storyboard?.instantiateViewController(withIdentifier: "checkVC") as! CheckViewController
-        checkVC.selectDay = selectDay
-        
+        //年・月・日で分割して配列に格納
+        selectArray = selectDay.components(separatedBy: "/")
+        //値渡しがうまくいかなかったのでuserdefaultsで力技で行った
+        userDefaults.set(selectArray, forKey: "tapDate")
+        userDefaults.set(selectDay, forKey: "day")
     }
     
     

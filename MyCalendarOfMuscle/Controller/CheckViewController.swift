@@ -38,6 +38,9 @@ class CheckViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSou
     var dayPosiMenu2 = [String]()
     var dayPosiMenu3 = [String]()
     
+    var tapYear = String()
+    var tapMonth = String()
+    var tapDay = String()
 
     
     override func viewDidLoad() {
@@ -111,15 +114,80 @@ class CheckViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSou
     
     override func viewWillAppear(_ animated: Bool) {
         
+        self.tabBarController?.tabBar.isHidden = false
+        
         if userDefaults.string(forKey: "calName") == nil{
             navigationItem.title = "私の筋トレカレンダー"
         }else{
             navigationItem.title = userDefaults.string(forKey: "calName")
         }
         
-        calView2.reloadData()
+        
+        if userDefaults.stringArray(forKey: "tapDate") != nil{
+        
+            let dateArray = userDefaults.stringArray(forKey: "tapDate")
+            
+            let a = Calendar.current
+            let b = a.date(from: DateComponents(year: Int(dateArray![0])!, month: Int(dateArray![1])!, day: Int(dateArray![2])!))
+            calView2.select(b)
+            
+        }
+        
+        if userDefaults.string(forKey: "day") != nil{
+            selectDay = userDefaults.string(forKey: "day")!
+            menuLabel2.text = "\(selectDay.dropFirst(5))日のトレーニングメニュー"
+        }
+        
+        //ここから下はdidselect(FScalendar)の時と同じプログラムで、ホームからタブで遷移した際にホームで選択していた日付のメニューを表示させるようにした。
+        dayPosition1.removeAll()
+        dayPosition2.removeAll()
+        dayPosition3.removeAll()
+        
+        dayPosiMenu1.removeAll()
+        dayPosiMenu2.removeAll()
+        dayPosiMenu3.removeAll()
+        
+        dayMenu.removeAll()
+        
+        //nil判定
+        if userDefaults.stringArray(forKey: selectDay) != nil{
+            dayMenu = userDefaults.stringArray(forKey: selectDay)!
+        }else if userDefaults.stringArray(forKey: selectDay) == nil{
+            dayMenu.removeAll()
+            userDefaults.set(dayMenu, forKey: selectDay)
+        }
+        //この関数でメニューの詳細を管理するString配列,tableViewのsectionを作成
+        sectionCreate()
+        
+        switch dayMenu.count {
+        case 1:
+            if userDefaults.stringArray(forKey: "\(dayPosition1)\(selectDay)") != nil{
+                dayPosiMenu1 = userDefaults.stringArray(forKey: "\(dayPosition1)\(selectDay)")!
+            }
+        case 2:
+            if userDefaults.stringArray(forKey: "\(dayPosition1)\(selectDay)") != nil{
+                dayPosiMenu1 = userDefaults.stringArray(forKey: "\(dayPosition1)\(selectDay)")!
+            }
+            if userDefaults.stringArray(forKey: "\(dayPosition2)\(selectDay)") != nil{
+                dayPosiMenu2 = userDefaults.stringArray(forKey: "\(dayPosition2)\(selectDay)")!
+            }
+        case 3:
+            if userDefaults.stringArray(forKey: "\(dayPosition1)\(selectDay)") != nil{
+                dayPosiMenu1 = userDefaults.stringArray(forKey: "\(dayPosition1)\(selectDay)")!
+            }
+            if userDefaults.stringArray(forKey: "\(dayPosition2)\(selectDay)") != nil{
+                dayPosiMenu2 = userDefaults.stringArray(forKey: "\(dayPosition2)\(selectDay)")!
+            }
+            if userDefaults.stringArray(forKey: "\(dayPosition3)\(selectDay)") != nil{
+                dayPosiMenu3 = userDefaults.stringArray(forKey: "\(dayPosition3)\(selectDay)")!
+            }
+            
+        default:
+            break
+        }
+        
         tableView.reloadData()
-        self.tabBarController?.tabBar.isHidden = false
+        calView2.reloadData()
 
     }
     
@@ -184,6 +252,7 @@ class CheckViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSou
         }
         
         tableView.reloadData()
+        calView2.reloadData()
 
         
     }

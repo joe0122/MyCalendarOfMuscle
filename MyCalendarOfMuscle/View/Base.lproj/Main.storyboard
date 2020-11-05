@@ -52,7 +52,7 @@
                             </barButtonItem>
                         </leftBarButtonItems>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="dt4-DT-EJd">
-                            <imageReference key="image" image="highlighter" catalog="system" symbolScale="default"/>
+                            <imageReference key="image" image="highlighter" catalog="system" symbolScale="large"/>
                             <connections>
                                 <segue destination="8Yf-wF-2vH" kind="push" id="0n1-db-twr"/>
                             </connections>
@@ -431,6 +431,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="gGH-4L-C6o" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="oyg-1O-mEN">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
@@ -464,8 +465,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="7FY-Ir-6Dc"/>
-        <segue reference="vGl-Zd-Dpg"/>
+        <segue reference="0n1-db-twr"/>
+        <segue reference="pNe-Qw-GFu"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="gobackward" catalog="system" width="121" height="128"/>

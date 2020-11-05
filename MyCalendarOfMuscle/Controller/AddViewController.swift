@@ -181,7 +181,8 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             cell?.selectionStyle = .none
             selectMenu.append((cell?.textLabel?.text)!)
         }
-                
+        print(selectMenu)
+        
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
@@ -196,6 +197,8 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             cell?.selectionStyle = .none
             selectMenu.append((cell?.textLabel?.text)!)
         }
+        print(selectMenu)
+
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
