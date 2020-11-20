@@ -83,7 +83,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         }
         
         tableView.allowsMultipleSelection = true
-        
+                
         //日付の表示と部位の部分だけのテキストカラーを変えている
         if pushMenu == "腕"{
             traningNameLabel.text = "腕トレのメニュー(\(selectDay.dropFirst(5)))"

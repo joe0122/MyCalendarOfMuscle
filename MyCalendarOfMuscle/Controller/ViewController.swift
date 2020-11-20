@@ -12,21 +12,15 @@ import CalculateCalendarLogic
 
 class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,FSCalendarDelegateAppearance /*GADBannerViewDelegate*/{
     
-    
     @IBOutlet weak var calView: UIView!
     @IBOutlet weak var cal: FSCalendar!
-    
-    //それぞれのボタンのインスタンス
-    let ude = UIButton()
-    let kata = UIButton()
-    let hara = UIButton()
-    let mune = UIButton()
-    let senaka = UIButton()
-    let ashi = UIButton()
-    let yuu = UIButton()
-
-    //カレンダーとボタンの部分の区切りのため
-    let menuLabel = UILabel()
+    @IBOutlet weak var ude: UIButton!
+    @IBOutlet weak var kata: UIButton!
+    @IBOutlet weak var mune: UIButton!
+    @IBOutlet weak var hara: UIButton!
+    @IBOutlet weak var senaka: UIButton!
+    @IBOutlet weak var ashi: UIButton!
+    @IBOutlet weak var yuu: UIButton!
     
     let formatter = DateFormatter()
     //userdefaultsに保存するために一旦格納する場所
@@ -42,59 +36,21 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
     let screenHeight = UIScreen.main.bounds.height
     
     var selectArray = [String]()
-            
+    
+    var menuData = [MenuData]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //ライトモードのみにする
         self.overrideUserInterfaceStyle = .light
         
         //ナビゲーションバーの詳細
-        let naviBarHeight = navigationController?.navigationBar.frame.size.height
         navigationController?.navigationBar.barTintColor = .systemOrange
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.barStyle = .black
         navigationController?.navigationBar.titleTextAttributes = [
             .foregroundColor: UIColor.white
         ]
-        
-        
-        //カレンダーのサイズ
-        calView.frame = CGRect(x: 0, y: naviBarHeight! + statusHeight, width: screenWidth, height: screenHeight/2)
-        
-        //上段４つのボタンのサイズと場所
-        ude.frame = CGRect(x: screenWidth/6 - screenWidth/10, y: screenHeight * 2/3, width: screenWidth/6, height: screenWidth/6)
-        kata.frame = CGRect(x: screenWidth/10 * 3, y: screenHeight * 2/3, width: screenWidth/6, height: screenWidth/6)
-        mune.frame = CGRect(x: screenWidth/2 + screenWidth/22, y: screenHeight * 2/3, width: screenWidth/6, height: screenWidth/6)
-        hara.frame = CGRect(x: screenWidth - (screenWidth/6 + screenWidth/17), y: screenHeight * 2/3, width: screenWidth/6, height: screenWidth/6)
-        
-        //下段３つのボタンのサイズと場所
-        senaka.frame = CGRect(x: screenWidth/6, y: screenHeight * 3.1/4, width: screenWidth/6, height: screenWidth/6)
-        ashi.frame = CGRect(x: screenWidth/2 - screenWidth/12, y: screenHeight * 3.1/4, width: screenWidth/6, height: screenWidth/6)
-        yuu.frame = CGRect(x: screenWidth - screenWidth/6 * 2, y: screenHeight * 3.1/4, width: screenWidth/6, height: screenWidth/6)
-        
-        ude.backgroundColor = .systemRed
-        kata.backgroundColor = .systemGreen
-        hara.backgroundColor = .systemBlue
-        mune.backgroundColor = .systemYellow
-        senaka.backgroundColor = .systemPurple
-        ashi.backgroundColor = .systemTeal
-        yuu.backgroundColor = .systemOrange
-        
-        ude.titleLabel?.font = UIFont(name: "HiraKakuProN-W6", size: 22)
-        kata.titleLabel?.font = UIFont(name: "HiraKakuProN-W6", size: 22)
-        hara.titleLabel?.font = UIFont(name: "HiraKakuProN-W6", size: 22)
-        mune.titleLabel?.font = UIFont(name: "HiraKakuProN-W6", size: 22)
-        senaka.titleLabel?.font = UIFont(name: "HiraKakuProN-W6", size: 22)
-        ashi.titleLabel?.font = UIFont(name: "HiraKakuProN-W6", size: 22)
-        yuu.titleLabel?.font = UIFont(name: "HiraKakuProN-W6", size: 48)
-
-        ude.addTarget(self, action: #selector(udeAction(_:)), for: UIControl.Event.touchUpInside)
-        kata.addTarget(self, action: #selector(kataAction(_:)), for: UIControl.Event.touchUpInside)
-        hara.addTarget(self, action: #selector(haraAction(_:)), for: UIControl.Event.touchUpInside)
-        mune.addTarget(self, action: #selector(muneAction(_:)), for: UIControl.Event.touchUpInside)
-        senaka.addTarget(self, action: #selector(senakaAction(_:)), for: UIControl.Event.touchUpInside)
-        ashi.addTarget(self, action: #selector(ashiAction(_:)), for: UIControl.Event.touchUpInside)
-        yuu.addTarget(self, action: #selector(yuuAction(_:)), for: UIControl.Event.touchUpInside)
         
         //ボタンを丸にして影をつける
         ButtuonShadow(position: ude)
@@ -104,45 +60,16 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
         ButtuonShadow(position: senaka)
         ButtuonShadow(position: ashi)
         ButtuonShadow(position: yuu)
-
-        ude.setTitle("腕", for: .normal)
-        kata.setTitle("肩", for: .normal)
-        mune.setTitle("胸", for: .normal)
-        hara.setTitle("腹", for: .normal)
-        senaka.setTitle("背", for: .normal)
-        ashi.setTitle("脚", for: .normal)
-        yuu.setTitle("🏃‍♂️", for: .normal)
-
-        
-        self.view.addSubview(ude)
-        self.view.addSubview(kata)
-        self.view.addSubview(hara)
-        self.view.addSubview(mune)
-        self.view.addSubview(ashi)
-        self.view.addSubview(senaka)
-        self.view.addSubview(yuu)
         
         //今日の日付を月日のStringにする
         formatter.dateStyle = .short
         formatter.timeStyle = .none
         selectDay = formatter.string(from: today)
-        //print(selectDay)
         
         //今日の日付のデータがなければ保存する
-        if userDefaults.stringArray(forKey: selectDay) == nil{
-            saveDB(SD: selectDay)
-        }
-        
-        
-        //ラベルの詳細
-        menuLabel.layer.frame = CGRect(x: 0, y: calView.frame.size.height + naviBarHeight! + statusHeight, width: screenWidth, height: 20)
-        menuLabel.text = "トレーニングメニュー"
-        menuLabel.textAlignment = .center
-        menuLabel.textColor = .white
-        menuLabel.font = .boldSystemFont(ofSize: 15)
-        menuLabel.backgroundColor = .systemOrange
-        self.view.addSubview(menuLabel)
-        
+//        if userDefaults.stringArray(forKey: selectDay) == nil{
+//            saveDB(SD: selectDay)
+//        }
         
         cal.dataSource = self
         cal.delegate = self
@@ -184,7 +111,7 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
         formatter.dateStyle = .short
         formatter.timeStyle = .none
         selectDay = formatter.string(from: date)
-        //print(selectDay)
+        print(selectDay)
         
         //年・月・日で分割して配列に格納
         selectArray = selectDay.components(separatedBy: "/")
@@ -194,13 +121,28 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
     }
     
     
-    @objc func udeAction(_ sender: Any) {buttonPush(position: "腕")}
-    @objc func kataAction(_ sender: Any) {buttonPush(position: "肩")}
-    @objc func haraAction(_ sender: Any) {buttonPush(position: "腹")}
-    @objc func muneAction(_ sender: Any) {buttonPush(position: "胸")}
-    @objc func senakaAction(_ sender: Any) {buttonPush(position: "背")}
-    @objc func ashiAction(_ sender: Any) {buttonPush(position: "脚")}
-    @objc func yuuAction(_ sender: Any) {buttonPush(position: "有")}
+    
+    @IBAction func ude(_ sender: Any) {
+        buttonPush(position: "腕")
+    }
+    @IBAction func kata(_ sender: Any) {
+        buttonPush(position: "肩")
+    }
+    @IBAction func mune(_ sender: Any) {
+        buttonPush(position: "胸")
+    }
+    @IBAction func hara(_ sender: Any) {
+        buttonPush(position: "腹")
+    }
+    @IBAction func senaka(_ sender: Any) {
+        buttonPush(position: "背")
+    }
+    @IBAction func ashi(_ sender: Any) {
+        buttonPush(position: "脚")
+    }
+    @IBAction func yuu(_ sender: Any) {
+        buttonPush(position: "有")
+    }
     
     
     func calendar(_ calendar: FSCalendar, imageFor date: Date) -> UIImage? {
@@ -388,9 +330,12 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
     }
     
     
-    func saveDB(SD:String){
-        userDefaults.set(traning, forKey: SD)
-        traning.removeAll()
+    func saveDB(data:String,position:[String],menu1:[String],menu2:[String],meun3:[String],menuImage:UIImage){
+//        userDefaults.set(traning, forKey: SD)
+//        traning.removeAll()
+        
+        menuData.append(MenuData(date: data, position: position, menu1: menu1, menu2: menu2, menu3: meun3, menuImage: menuImage))
+        
     }
     
     
@@ -398,7 +343,16 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
         
         let addTable = self.storyboard?.instantiateViewController(withIdentifier: "addTable") as! AddViewController
         
+        for i in 0...menuData.count - 1{
+            if selectDay == menuData[i].date{
+                if menuData[i].position != nil{
+                    traning = menuData[i].position!
+                }
+            }
+        }
+        
         addTable.pushMenu = position
+        addTable.selectDay = selectDay
         
         if userDefaults.stringArray(forKey: selectDay) == nil{
             userDefaults.set(traning, forKey: selectDay)
@@ -409,35 +363,10 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
         if traning.count <= 2{
             //選択した部位が含まれている
             if traning.contains(position){
-                
-                //編集するか取り消すかのアラート
-                let alert = UIAlertController(title: "\(position)トレを取消 / \(position)トレを編集", message: "", preferredStyle: UIAlertController.Style.alert)
-                
-                //取り消しならデータからトレーニングを削除
-                let action1 = UIAlertAction(title: "取消", style: UIAlertAction.Style.destructive, handler: {
-                    (action: UIAlertAction!) in
-                    var a = self.userDefaults.stringArray(forKey: self.selectDay)!
-                    a.remove(at: a.firstIndex(of: position)!)
-                    //print(a)
-                    self.userDefaults.set(a, forKey: self.selectDay)
-                    self.cal.reloadData()
-                })
-                //編集なら編集画面へ遷移
-                let action2 = UIAlertAction(title: "編集", style: UIAlertAction.Style.default, handler: {
-                    (action: UIAlertAction!) in
-                    addTable.selectDay = self.selectDay
-                    self.present(addTable, animated: true, completion: nil)
-                })
-                
-                alert.addAction(action1)
-                alert.addAction(action2)
-                present(alert, animated: true, completion: nil)
-                saveDB(SD: selectDay)
-                
+                HensyuOrTorikeshi(position: position)
             }else{
                 //選択した部位が含まれていない
                 traning.append(position)
-                saveDB(SD: selectDay)
     
                 addTable.selectDay = selectDay
                 self.present(addTable, animated: true, completion: nil)
@@ -445,36 +374,59 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
             
         }else if traning.count == 3 && traning.contains(position){
             //選択した日付のトレーニングが上限かつ、選択したトレーニングが含まれている
-            
-            let alert = UIAlertController(title: "\(position)トレを取消 / \(position)トレを編集", message: "", preferredStyle: UIAlertController.Style.alert)
-            
-            let action1 = UIAlertAction(title: "取消", style: UIAlertAction.Style.destructive, handler: {
-                (action: UIAlertAction!) in
-                var a = self.userDefaults.stringArray(forKey: self.selectDay)!
-                a.remove(at: a.firstIndex(of: position)!)
-                //print(a)
-                self.userDefaults.set(a, forKey: self.selectDay)
-                self.cal.reloadData()
-            })
-            
-            let action2 = UIAlertAction(title: "編集", style: UIAlertAction.Style.default, handler: {
-                (action: UIAlertAction!) in
-                addTable.selectDay = self.selectDay
-                self.present(addTable, animated: true, completion: nil)
-            })
-            
-            alert.addAction(action1)
-            alert.addAction(action2)
-            present(alert, animated: true, completion: nil)
-            
+            HensyuOrTorikeshi(position: position)
         }else{
             //３つ以上は登録させていないのでアラート
             Alert()
         }
-        
         cal.reloadData()
+    }
+    
+    func Alert(){
+        let alert = UIAlertController(title: "これ以上は選択できません！", message: "1日3つまでの登録となります", preferredStyle: UIAlertController.Style.alert)
+        let action = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
         
     }
+    
+    func ButtuonShadow(position: UIButton){
+        //ボタンに影をつけて丸にする
+        position.layer.shadowColor = UIColor.black.cgColor
+        position.layer.shadowRadius = 3
+        position.layer.shadowOffset = CGSize(width: 2, height: 2)
+        position.layer.shadowOpacity = 0.5
+    }
+    
+    
+    func HensyuOrTorikeshi(position:String){
+        
+        let addTable = self.storyboard?.instantiateViewController(withIdentifier: "addTable") as! AddViewController
+        
+        let alert = UIAlertController(title: "\(position)トレを取消 / \(position)トレを編集", message: "", preferredStyle: UIAlertController.Style.alert)
+        
+        let action1 = UIAlertAction(title: "取消", style: UIAlertAction.Style.destructive, handler: {
+            (action: UIAlertAction!) in
+            self.traning.remove(at: self.traning.firstIndex(of: position)!)
+            var a = self.userDefaults.stringArray(forKey: self.selectDay)!
+            a.remove(at: a.firstIndex(of: position)!)
+            self.userDefaults.set(a, forKey: self.selectDay)
+            self.cal.reloadData()
+        })
+        
+        let action2 = UIAlertAction(title: "編集", style: UIAlertAction.Style.default, handler: {
+            (action: UIAlertAction!) in
+            addTable.selectDay = self.selectDay
+            addTable.pushMenu = position
+            self.present(addTable, animated: true, completion: nil)
+        })
+        
+        alert.addAction(action1)
+        alert.addAction(action2)
+        present(alert, animated: true, completion: nil)
+        
+    }
+    
     
     @IBAction func backNow(_ sender: Any) {
         //今日の日付にジャンプ
@@ -539,27 +491,7 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
 
         return nil
     }
-    
-
-    func Alert(){
-        let alert = UIAlertController(title: "これ以上は選択できません！", message: "1日3つまでの登録となります", preferredStyle: UIAlertController.Style.alert)
-        let action = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
-        alert.addAction(action)
-        present(alert, animated: true, completion: nil)
-        
-    }
-    
-    func ButtuonShadow(position: UIButton){
-        //ボタンに影をつけて丸にする
-        position.layer.cornerRadius = screenWidth/12
-        position.layer.shadowColor = UIColor.black.cgColor
-        position.layer.shadowRadius = 3
-        position.layer.shadowOffset = CGSize(width: 2, height: 2)
-        position.layer.shadowOpacity = 0.5
-        
-    }
 }
-
 
 
 //カレンダーで使う画像をリサイズするためのエクステンション
