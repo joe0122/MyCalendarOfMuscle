@@ -31,6 +31,7 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
     var selectData = [String]()
     var selectDay = String()
     var pushMenu = String()
+    var traning = [String]()
     
     var menuArray = [String]()
     var selectMenu = [String]()

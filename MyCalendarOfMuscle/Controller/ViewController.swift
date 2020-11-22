@@ -66,10 +66,15 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
         formatter.timeStyle = .none
         selectDay = formatter.string(from: today)
         
-        //今日の日付のデータがなければ保存する
-//        if userDefaults.stringArray(forKey: selectDay) == nil{
-//            saveDB(SD: selectDay)
-//        }
+        if userDefaults.object(forKey: "menuData") != nil{
+            menuData = userDefaults.object(forKey: "menuData") as! [MenuData]
+        }
+        
+        if menuData.isEmpty{
+            menuData[0].date = selectDay
+            saveDB()
+        }
+
         
         cal.dataSource = self
         cal.delegate = self
@@ -101,8 +106,8 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
         }else{
             navigationItem.title = userDefaults.string(forKey: "calName")
         }
-        self.tabBarController?.tabBar.isHidden = false
         
+        self.tabBarController?.tabBar.isHidden = false
     }
     
     
@@ -111,13 +116,7 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
         formatter.dateStyle = .short
         formatter.timeStyle = .none
         selectDay = formatter.string(from: date)
-        print(selectDay)
         
-        //年・月・日で分割して配列に格納
-        selectArray = selectDay.components(separatedBy: "/")
-        //値渡しがうまくいかなかったのでuserdefaultsで力技で行った
-        userDefaults.set(selectArray, forKey: "tapDate")
-        userDefaults.set(selectDay, forKey: "day")
     }
     
     
@@ -330,12 +329,10 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
     }
     
     
-    func saveDB(data:String,position:[String],menu1:[String],menu2:[String],meun3:[String],menuImage:UIImage){
+    func saveDB(){
 //        userDefaults.set(traning, forKey: SD)
 //        traning.removeAll()
-        
-        menuData.append(MenuData(date: data, position: position, menu1: menu1, menu2: menu2, menu3: meun3, menuImage: menuImage))
-        
+        userDefaults.set(menuData, forKey: "menuData")
     }
     
     
@@ -343,20 +340,48 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
         
         let addTable = self.storyboard?.instantiateViewController(withIdentifier: "addTable") as! AddViewController
         
+        var traning1 = [String]()
+        var traning2 = [String]()
+        var traning3 = [String]()
+        
         for i in 0...menuData.count - 1{
-            if selectDay == menuData[i].date{
-                if menuData[i].position != nil{
-                    traning = menuData[i].position!
+            
+            switch menuData[i].position.count {
+            case 0:
+                menuData[i].position.append(position)
+            case 1:
+                if menuData[i].position.contains(position){
+                    HensyuOrTorikeshi(position: position)
                 }
-            }
+            case 2:
+                if menuData[i].position.contains(position){
+                    HensyuOrTorikeshi(position: position)
+                }
+                
+            case 3:
+                if menuData[i].position.contains(position){
+                    HensyuOrTorikeshi(position: position)
+                }else{
+                    Alert()
+                }
+                
+                
+            default:
+                break
+            
+            
         }
+                
+           
         
-        addTable.pushMenu = position
-        addTable.selectDay = selectDay
+            
+            
+            
+            
         
-        if userDefaults.stringArray(forKey: selectDay) == nil{
-            userDefaults.set(traning, forKey: selectDay)
-        }
+//        if userDefaults.stringArray(forKey: selectDay) == nil{
+//            userDefaults.set(traning, forKey: selectDay)
+//        }
         
         traning = userDefaults.stringArray(forKey: selectDay)!
         //まだ選択した日にトレーニングが追加できる場合
@@ -380,6 +405,7 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
             Alert()
         }
         cal.reloadData()
+        }
     }
     
     func Alert(){

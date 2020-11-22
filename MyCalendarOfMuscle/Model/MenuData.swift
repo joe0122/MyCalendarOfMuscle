@@ -9,8 +9,7 @@ import Foundation
 import UIKit
 
 struct MenuData {
-    var date:String?
-    var position:[String]?
+    var position:[String] = [""]
     var menu1:[String]?
     var menu2:[String]?
     var menu3:[String]?
