@@ -32,12 +32,11 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
 
     let userDefaults = UserDefaults.standard
     
-    let screenWidth = UIScreen.main.bounds.width
-    let screenHeight = UIScreen.main.bounds.height
-    
     var selectArray = [String]()
     
-    var menuData = [MenuData]()
+    var menuData = MenuData()
+    
+    let searchModel = SearchModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,16 +64,7 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
         formatter.dateStyle = .short
         formatter.timeStyle = .none
         selectDay = formatter.string(from: today)
-        
-        if userDefaults.object(forKey: "menuData") != nil{
-            menuData = userDefaults.object(forKey: "menuData") as! [MenuData]
-        }
-        
-        if menuData.isEmpty{
-            menuData[0].date = selectDay
-            saveDB()
-        }
-
+        print(selectDay)
         
         cal.dataSource = self
         cal.delegate = self
@@ -116,7 +106,6 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
         formatter.dateStyle = .short
         formatter.timeStyle = .none
         selectDay = formatter.string(from: date)
-        
     }
     
     
@@ -144,269 +133,81 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
     }
     
     
+    
     func calendar(_ calendar: FSCalendar, imageFor date: Date) -> UIImage? {
         
         formatter.dateStyle = .short
         formatter.timeStyle = .none
         
-        if userDefaults.stringArray(forKey: formatter.string(from: date)) == nil{
-            return nil
-        }else{
-            
-            let a = userDefaults.stringArray(forKey: formatter.string(from: date))!
-            
-            //トレーニングがない時
-            if a.count == 0{
-                return nil
-            }else if a.count == 1{
-                //トレーニングが１つの時
-                if a.contains("腕"){
-                    return udeImg
-                }else if a.contains("肩"){
-                    return kataImg
-                }else if a.contains("胸"){
-                    return muneImg
-                }else if a.contains("腹"){
-                    return haraImg
-                }else if a.contains("背"){
-                    return senakaImg
-                }else if a.contains("脚"){
-                    return ashiImg
-                }else if a.contains("有"){
-                    return yuuImg
-                }
-            }else if a.count == 2{
-                //トレーニングが２つの時
-                if a.contains("腕"){
-                    if a.contains("肩"){
-                        return udekata
-                    }else if a.contains("胸"){
-                        return udemune
-                    }else if a.contains("腹"){
-                        return udehara
-                    }else if a.contains("背"){
-                        return udesenaka
-                    }else if a.contains("脚"){
-                        return udeashi
-                    }else if a.contains("有"){
-                        return udeyuu
-                    }
-                }else if a.contains("肩"){
-                    if a.contains("胸"){
-                        return katamune
-                    }else if a.contains("腹"){
-                        return katahara
-                    }else if a.contains("背"){
-                        return katasenaka
-                    }else if a.contains("脚"){
-                        return kataashi
-                    }else if a.contains("有"){
-                        return katayuu
-                    }
-                }else if a.contains("胸"){
-                    if a.contains("腹"){
-                        return munehara
-                    }else if a.contains("背"){
-                        return munesenaka
-                    }else if a.contains("脚"){
-                        return muneashi
-                    }else if a.contains("有"){
-                        return muneyuu
-                    }
-                }else if a.contains("腹"){
-                    if a.contains("背"){
-                        return harasenaka
-                    }else if a.contains("脚"){
-                        return haraashi
-                    }else if a.contains("有"){
-                        return harayuu
-                    }
-                }else if a.contains("背"){
-                    if a.contains("脚"){
-                        return senakaashi
-                    }else if a.contains("有"){
-                        return senakayuu
-                    }
-                }else{
-                        return ashiyuu
-                    }
-            }else if a.count == 3{
-                //トレーニングが３つの時
-                if a.contains("腕") && a.contains("肩"){
-                    if a.contains("胸"){
-                        return udekatamune
-                    }else if a.contains("腹"){
-                        return udekatahara
-                    }else if a.contains("背"){
-                        return udekatasenaka
-                    }else if a.contains("脚"){
-                        return udekataashi
-                    }else if a.contains("有"){
-                        return udekatayuu
-                    }
-                }else if a.contains("腕") && a.contains("胸"){
-                    if a.contains("腹"){
-                        return udemunehara
-                    }else if a.contains("背"){
-                        return udemunesenaka
-                    }else if a.contains("脚"){
-                        return udemuneashi
-                    }else if a.contains("有"){
-                        return udemuneyuu
-                    }
-                }else if a.contains("腕") && a.contains("腹"){
-                    if a.contains("背"){
-                        return udeharasenaka
-                    }else if a.contains("脚"){
-                        return udeharaashi
-                    }else if a.contains("有"){
-                        return udeharayuu
-                    }
-                }else if a.contains("腕") && a.contains("背"){
-                    if a.contains("脚"){
-                        return udesenakaashi
-                    }else if a.contains("有"){
-                        return udesenakayuu
-                    }
-                }else if a.contains("腕") && a.contains("脚"){
-                    return udeashiyuu
-                }else if a.contains("肩") && a.contains("胸"){
-                    if a.contains("腹"){
-                        return katamunehara
-                    }else if a.contains("背"){
-                        return katamunesenaka
-                    }else if a.contains("脚"){
-                        return katamuneashi
-                    }else if a.contains("有"){
-                        return katamuneyuu
-                    }
-                }else if a.contains("肩") && a.contains("腹"){
-                    if a.contains("背"){
-                        return kataharasenaka
-                    }else if a.contains("脚"){
-                        return kataharaashi
-                    }else if a.contains("有"){
-                        return kataharayuu
-                    }
-                }else if a.contains("肩") && a.contains("背"){
-                    if a.contains("脚"){
-                        return katasenakaashi
-                    }else if a.contains("有"){
-                        return katasenakayuu
-                    }
-                }else if a.contains("肩") && a.contains("脚"){
-                    return kataashiyuu
-                }else if a.contains("胸") && a.contains("腹"){
-                    if a.contains("背"){
-                        return muneharasenaka
-                    }else if a.contains("脚"){
-                        return muneharaashi
-                    }else if a.contains("有"){
-                        return muneharayuu
-                    }
-                }else if a.contains("胸") && a.contains("背"){
-                    if a.contains("脚"){
-                        return munesenakaashi
-                    }else{
-                        return munesenakayuu
-                    }
-                }else if a.contains("胸") && a.contains("脚"){
-                    return muneashiyuu
-                }else if a.contains("腹") && a.contains("背"){
-                    if a.contains("脚"){
-                        return harasenakaashi
-                    }else{
-                        return harasenakayuu
-                    }
-                }else if a.contains("腹") && a.contains("脚"){
-                    return haraashiyuu
-                }else{
-                    return senakaashiyuu
-                }
-            }
-            return UIImage()
+        var image = UIImage()
+        
+        if let data = userDefaults.value(forKey: "\(formatter.string(from: date))") as? Data{
+            let a = try? PropertyListDecoder().decode(MenuData.self, from: data)
+            image = searchModel.searchPosition(menuData: a!)!
         }
+        return image
     }
     
     
     func saveDB(){
-//        userDefaults.set(traning, forKey: SD)
-//        traning.removeAll()
-        userDefaults.set(menuData, forKey: "menuData")
+        userDefaults.set(try? PropertyListEncoder().encode(menuData), forKey: "\(selectDay)")
     }
     
     
     func buttonPush(position:String){
         
         let addTable = self.storyboard?.instantiateViewController(withIdentifier: "addTable") as! AddViewController
+        addTable.selectDay = selectDay
+        addTable.pushMenu = position
         
-        var traning1 = [String]()
-        var traning2 = [String]()
-        var traning3 = [String]()
+        menuData = MenuData()
         
-        for i in 0...menuData.count - 1{
-            
-            switch menuData[i].position.count {
-            case 0:
-                menuData[i].position.append(position)
-            case 1:
-                if menuData[i].position.contains(position){
-                    HensyuOrTorikeshi(position: position)
-                }
-            case 2:
-                if menuData[i].position.contains(position){
-                    HensyuOrTorikeshi(position: position)
-                }
-                
-            case 3:
-                if menuData[i].position.contains(position){
-                    HensyuOrTorikeshi(position: position)
-                }else{
-                    Alert()
-                }
-                
-                
-            default:
-                break
-            
-            
+        if let data = userDefaults.value(forKey: "\(selectDay)") as? Data{
+            let decodeData = try? PropertyListDecoder().decode(MenuData.self, from: data)
+            menuData = decodeData!
         }
-                
-           
         
-            
-            
-            
-            
+        switch menuData.position.count {
+        case 0:
+            menuData.position.append(position)
+            menuData.menu1.append(position)
+            present(addTable, animated: true, completion: nil)
         
-//        if userDefaults.stringArray(forKey: selectDay) == nil{
-//            userDefaults.set(traning, forKey: selectDay)
-//        }
-        
-        traning = userDefaults.stringArray(forKey: selectDay)!
-        //まだ選択した日にトレーニングが追加できる場合
-        if traning.count <= 2{
-            //選択した部位が含まれている
-            if traning.contains(position){
+        case 1:
+            if menuData.position.contains(position){
                 HensyuOrTorikeshi(position: position)
             }else{
-                //選択した部位が含まれていない
-                traning.append(position)
-    
-                addTable.selectDay = selectDay
-                self.present(addTable, animated: true, completion: nil)
+                menuData.position.append(position)
+                menuData.menu2.append(position)
+                present(addTable, animated: true, completion: nil)
+
             }
             
-        }else if traning.count == 3 && traning.contains(position){
-            //選択した日付のトレーニングが上限かつ、選択したトレーニングが含まれている
-            HensyuOrTorikeshi(position: position)
-        }else{
-            //３つ以上は登録させていないのでアラート
-            Alert()
+        case 2:
+            if menuData.position.contains(position){
+                HensyuOrTorikeshi(position: position)
+            }else{
+                menuData.position.append(position)
+                menuData.menu3.append(position)
+                present(addTable, animated: true, completion: nil)
+
+            }
+        case 3:
+            if menuData.position.contains(position){
+                HensyuOrTorikeshi(position: position)
+            }else{
+                Alert()
+            }
+            
+        default:
+            break
         }
+                
+        saveDB()
         cal.reloadData()
+
         }
-    }
+    
     
     func Alert(){
         let alert = UIAlertController(title: "これ以上は選択できません！", message: "1日3つまでの登録となります", preferredStyle: UIAlertController.Style.alert)
@@ -418,6 +219,7 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
     
     func ButtuonShadow(position: UIButton){
         //ボタンに影をつけて丸にする
+        position.layer.cornerRadius = position.bounds.height/2
         position.layer.shadowColor = UIColor.black.cgColor
         position.layer.shadowRadius = 3
         position.layer.shadowOffset = CGSize(width: 2, height: 2)
@@ -433,10 +235,17 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
         
         let action1 = UIAlertAction(title: "取消", style: UIAlertAction.Style.destructive, handler: {
             (action: UIAlertAction!) in
-            self.traning.remove(at: self.traning.firstIndex(of: position)!)
-            var a = self.userDefaults.stringArray(forKey: self.selectDay)!
-            a.remove(at: a.firstIndex(of: position)!)
-            self.userDefaults.set(a, forKey: self.selectDay)
+            self.menuData.position.remove(at: self.menuData.position.firstIndex(of: position)!)
+            
+            if self.menuData.menu1.first == position{
+                self.menuData.menu1.removeAll()
+            }else if self.menuData.menu2.first == position{
+                self.menuData.menu2.removeAll()
+            }else{
+                self.menuData.menu3.removeAll()
+            }
+            
+            self.saveDB()
             self.cal.reloadData()
         })
         

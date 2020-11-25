@@ -19,10 +19,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GYC-cg-AJq" customClass="FSCalendar">
-                                <rect key="frame" x="0.0" y="88" width="375" height="380"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="358"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="380" id="T61-DB-f5X"/>
+                                    <constraint firstAttribute="width" secondItem="GYC-cg-AJq" secondAttribute="height" multiplier="375:358" id="K6L-Jr-Blr"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="todayColor">
@@ -32,141 +32,143 @@
                                         <color key="value" systemColor="systemOrangeColor"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="string" keyPath="headerDateFormat" value="YYYY年MM月"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="firstWeekday">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lLA-xk-uey">
-                                <rect key="frame" x="29" y="511" width="60" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemRedColor"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
-                                <state key="normal" title="腕">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <integer key="value" value="30"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="ude:" destination="MJX-go-1ZO" eventType="touchUpInside" id="zE4-kn-h9v"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fks-qV-tEI">
-                                <rect key="frame" x="199" y="511" width="60" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemYellowColor"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
-                                <state key="normal" title="胸">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <integer key="value" value="30"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="mune:" destination="MJX-go-1ZO" eventType="touchUpInside" id="ltL-tZ-z4L"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kcv-Ed-tfw">
-                                <rect key="frame" x="157" y="589" width="60" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemTealColor"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
-                                <state key="normal" title="脚">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <integer key="value" value="30"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="ashi:" destination="MJX-go-1ZO" eventType="touchUpInside" id="eKg-BO-N4I"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0cQ-mW-Wrv">
-                                <rect key="frame" x="75" y="589" width="60" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemPurpleColor"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
-                                <state key="normal" title="背">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <integer key="value" value="30"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="senaka:" destination="MJX-go-1ZO" eventType="touchUpInside" id="Me4-Ne-ftJ"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J19-ei-vak">
-                                <rect key="frame" x="284" y="511" width="60" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBlueColor"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
-                                <state key="normal" title="腹">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <integer key="value" value="30"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="hara:" destination="MJX-go-1ZO" eventType="touchUpInside" id="RUR-n4-NNT"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NWs-SA-3LX">
-                                <rect key="frame" x="243" y="589" width="60" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemOrangeColor"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
-                                <state key="normal" title="🏃‍♂️"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <integer key="value" value="30"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="yuu:" destination="MJX-go-1ZO" eventType="touchUpInside" id="wVg-Fe-coK"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N7O-Wr-0Hn">
-                                <rect key="frame" x="113" y="511" width="60" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemGreenColor"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
-                                <state key="normal" title="肩">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <integer key="value" value="30"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="kata:" destination="MJX-go-1ZO" eventType="touchUpInside" id="xnq-av-gmL"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="トレーニングメニュー" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="svT-be-nfC">
-                                <rect key="frame" x="0.0" y="476" width="375" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ROM-mn-IIU">
+                                <rect key="frame" x="29" y="668" width="315" height="61"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="61" id="sLo-ua-eMZ"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="トレーニングメニュー" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="svT-be-nfC">
+                                <rect key="frame" x="0.0" y="454" width="375" height="21"/>
                                 <color key="backgroundColor" systemColor="systemOrangeColor"/>
                                 <color key="tintColor" systemColor="systemOrangeColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="3Te-TE-TAt"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="4gf-Ea-UGz">
+                                <rect key="frame" x="29" y="483" width="315" height="60"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WYN-Kd-TKz">
+                                        <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                        <color key="backgroundColor" systemColor="systemRedColor"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                        <state key="normal" title="腕">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="ude:" destination="MJX-go-1ZO" eventType="touchUpInside" id="LsY-Xy-AYQ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0c3-QE-PVH">
+                                        <rect key="frame" x="85" y="0.0" width="60" height="60"/>
+                                        <color key="backgroundColor" systemColor="systemGreenColor"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                        <state key="normal" title="肩">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="kata:" destination="MJX-go-1ZO" eventType="touchUpInside" id="BsV-Pf-d2S"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m4V-nl-XeK">
+                                        <rect key="frame" x="170" y="0.0" width="60" height="60"/>
+                                        <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                        <state key="normal" title="胸">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="mune:" destination="MJX-go-1ZO" eventType="touchUpInside" id="lCl-1y-Exm"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kbz-aE-4oX">
+                                        <rect key="frame" x="255" y="0.0" width="60" height="60"/>
+                                        <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                        <state key="normal" title="腹">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="hara:" destination="MJX-go-1ZO" eventType="touchUpInside" id="71O-kH-QNd"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="jiM-Rb-IJf"/>
+                                </constraints>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="19" translatesAutoresizingMaskIntoConstraints="NO" id="XtW-c5-iGN">
+                                <rect key="frame" x="80" y="551" width="215" height="60"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1v0-LB-O0M">
+                                        <rect key="frame" x="0.0" y="0.0" width="59" height="60"/>
+                                        <color key="backgroundColor" systemColor="systemPurpleColor"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                        <state key="normal" title="背">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="senaka:" destination="MJX-go-1ZO" eventType="touchUpInside" id="wCN-qs-rJa"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hoF-yK-GR3">
+                                        <rect key="frame" x="78" y="0.0" width="59" height="60"/>
+                                        <color key="backgroundColor" systemColor="systemTealColor"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                        <state key="normal" title="脚">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="ashi:" destination="MJX-go-1ZO" eventType="touchUpInside" id="n09-QD-cd2"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xbr-He-mJR">
+                                        <rect key="frame" x="156" y="0.0" width="59" height="60"/>
+                                        <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                        <state key="normal" title="🏃‍♂️"/>
+                                        <connections>
+                                            <action selector="yuu:" destination="MJX-go-1ZO" eventType="touchUpInside" id="CxI-W9-hb3"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="UxB-c3-dS6"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="K0m-5Z-eZi"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="GYC-cg-AJq" firstAttribute="trailing" secondItem="K0m-5Z-eZi" secondAttribute="trailing" id="28R-WY-hIT"/>
-                            <constraint firstItem="GYC-cg-AJq" firstAttribute="leading" secondItem="K0m-5Z-eZi" secondAttribute="leading" id="Wjh-xh-ZeD"/>
-                            <constraint firstItem="GYC-cg-AJq" firstAttribute="top" secondItem="K0m-5Z-eZi" secondAttribute="top" id="tcX-vf-srk"/>
+                            <constraint firstItem="GYC-cg-AJq" firstAttribute="leading" secondItem="K0m-5Z-eZi" secondAttribute="leading" id="4D0-Bp-n7u"/>
+                            <constraint firstItem="svT-be-nfC" firstAttribute="trailing" secondItem="K0m-5Z-eZi" secondAttribute="trailing" id="761-lC-krJ"/>
+                            <constraint firstItem="4gf-Ea-UGz" firstAttribute="top" secondItem="svT-be-nfC" secondAttribute="bottom" constant="8" symbolic="YES" id="AFj-H0-iN7"/>
+                            <constraint firstItem="ROM-mn-IIU" firstAttribute="bottom" secondItem="K0m-5Z-eZi" secondAttribute="bottom" id="Avj-e0-9Q6"/>
+                            <constraint firstItem="svT-be-nfC" firstAttribute="top" secondItem="GYC-cg-AJq" secondAttribute="bottom" constant="8" symbolic="YES" id="Cpu-fG-hZb"/>
+                            <constraint firstItem="svT-be-nfC" firstAttribute="leading" secondItem="K0m-5Z-eZi" secondAttribute="leading" id="Crn-cX-nlv"/>
+                            <constraint firstItem="4gf-Ea-UGz" firstAttribute="leading" secondItem="K0m-5Z-eZi" secondAttribute="leading" constant="29" id="IhU-DR-iJd"/>
+                            <constraint firstItem="GYC-cg-AJq" firstAttribute="top" secondItem="K0m-5Z-eZi" secondAttribute="top" id="U2C-cA-UuL"/>
+                            <constraint firstItem="ROM-mn-IIU" firstAttribute="leading" secondItem="K0m-5Z-eZi" secondAttribute="leading" constant="29" id="iiD-90-AMv"/>
+                            <constraint firstItem="XtW-c5-iGN" firstAttribute="leading" secondItem="K0m-5Z-eZi" secondAttribute="leading" constant="80" id="jQY-0t-yd0"/>
+                            <constraint firstItem="K0m-5Z-eZi" firstAttribute="trailing" secondItem="ROM-mn-IIU" secondAttribute="trailing" constant="31" id="mbW-Vm-qro"/>
+                            <constraint firstItem="GYC-cg-AJq" firstAttribute="trailing" secondItem="K0m-5Z-eZi" secondAttribute="trailing" id="o40-Ka-eBL"/>
+                            <constraint firstItem="K0m-5Z-eZi" firstAttribute="trailing" secondItem="4gf-Ea-UGz" secondAttribute="trailing" constant="31" id="ozh-ML-c4Q"/>
+                            <constraint firstItem="K0m-5Z-eZi" firstAttribute="trailing" secondItem="XtW-c5-iGN" secondAttribute="trailing" constant="80" id="pfZ-WY-Nfg"/>
+                            <constraint firstItem="XtW-c5-iGN" firstAttribute="top" secondItem="4gf-Ea-UGz" secondAttribute="bottom" constant="8" symbolic="YES" id="wBx-MY-9tk"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="私の筋トレカレンダー" id="pta-jd-l0f">
@@ -193,15 +195,15 @@
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="ashi" destination="kcv-Ed-tfw" id="cNW-6J-Oim"/>
+                        <outlet property="ashi" destination="hoF-yK-GR3" id="gzG-YR-daz"/>
                         <outlet property="cal" destination="GYC-cg-AJq" id="sxD-9D-PEM"/>
                         <outlet property="calView" destination="GYC-cg-AJq" id="d3U-rC-lNS"/>
-                        <outlet property="hara" destination="J19-ei-vak" id="mWl-XX-Vqh"/>
-                        <outlet property="kata" destination="N7O-Wr-0Hn" id="zqC-uQ-Wbm"/>
-                        <outlet property="mune" destination="Fks-qV-tEI" id="6in-9f-Qqi"/>
-                        <outlet property="senaka" destination="0cQ-mW-Wrv" id="RUh-6U-YIp"/>
-                        <outlet property="ude" destination="lLA-xk-uey" id="Uwt-Ss-pK6"/>
-                        <outlet property="yuu" destination="NWs-SA-3LX" id="S3A-dM-Zhi"/>
+                        <outlet property="hara" destination="Kbz-aE-4oX" id="MjK-ay-RcC"/>
+                        <outlet property="kata" destination="0c3-QE-PVH" id="LiV-a0-9Zv"/>
+                        <outlet property="mune" destination="m4V-nl-XeK" id="M1v-c9-bQw"/>
+                        <outlet property="senaka" destination="1v0-LB-O0M" id="SlY-gx-9sX"/>
+                        <outlet property="ude" destination="WYN-Kd-TKz" id="4QO-MP-DnA"/>
+                        <outlet property="yuu" destination="xbr-He-mJR" id="Gme-kB-t89"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5OS-ta-DYv" sceneMemberID="firstResponder"/>
