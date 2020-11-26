@@ -19,11 +19,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GYC-cg-AJq" customClass="FSCalendar">
-                                <rect key="frame" x="0.0" y="88" width="375" height="358"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="435"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="GYC-cg-AJq" secondAttribute="height" multiplier="375:358" id="K6L-Jr-Blr"/>
-                                </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="todayColor">
                                         <color key="value" systemColor="opaqueSeparatorColor"/>
@@ -37,26 +34,59 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ROM-mn-IIU">
-                                <rect key="frame" x="29" y="668" width="315" height="61"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="61" id="sLo-ua-eMZ"/>
-                                </constraints>
-                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="トレーニングメニュー" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="svT-be-nfC">
-                                <rect key="frame" x="0.0" y="454" width="375" height="21"/>
+                                <rect key="frame" x="0.0" y="523" width="375" height="21"/>
                                 <color key="backgroundColor" systemColor="systemOrangeColor"/>
                                 <color key="tintColor" systemColor="systemOrangeColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="3Te-TE-TAt"/>
+                                    <constraint firstAttribute="height" constant="21" id="Sk7-qR-4Wn"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="4gf-Ea-UGz">
-                                <rect key="frame" x="29" y="483" width="315" height="60"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="27" translatesAutoresizingMaskIntoConstraints="NO" id="XtW-c5-iGN">
+                                <rect key="frame" x="70.666666666666686" y="649" width="234" height="60"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1v0-LB-O0M">
+                                        <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                        <color key="backgroundColor" systemColor="systemPurpleColor"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                        <state key="normal" title="背">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="senaka:" destination="MJX-go-1ZO" eventType="touchUpInside" id="wCN-qs-rJa"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hoF-yK-GR3">
+                                        <rect key="frame" x="86.999999999999986" y="0.0" width="60.000000000000014" height="60"/>
+                                        <color key="backgroundColor" systemColor="systemTealColor"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                        <state key="normal" title="脚">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="ashi:" destination="MJX-go-1ZO" eventType="touchUpInside" id="n09-QD-cd2"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xbr-He-mJR">
+                                        <rect key="frame" x="174" y="0.0" width="60" height="60"/>
+                                        <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                        <state key="normal" title="🏃‍♂️"/>
+                                        <connections>
+                                            <action selector="yuu:" destination="MJX-go-1ZO" eventType="touchUpInside" id="CxI-W9-hb3"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="234" id="8GM-ov-0yC"/>
+                                    <constraint firstAttribute="height" constant="60" id="LRc-Kt-r9P"/>
+                                </constraints>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="27" translatesAutoresizingMaskIntoConstraints="NO" id="4gf-Ea-UGz">
+                                <rect key="frame" x="27" y="569" width="321" height="60"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WYN-Kd-TKz">
                                         <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
@@ -73,7 +103,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0c3-QE-PVH">
-                                        <rect key="frame" x="85" y="0.0" width="60" height="60"/>
+                                        <rect key="frame" x="87" y="0.0" width="60" height="60"/>
                                         <color key="backgroundColor" systemColor="systemGreenColor"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                         <state key="normal" title="肩">
@@ -84,7 +114,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m4V-nl-XeK">
-                                        <rect key="frame" x="170" y="0.0" width="60" height="60"/>
+                                        <rect key="frame" x="174" y="0.0" width="60" height="60"/>
                                         <color key="backgroundColor" systemColor="systemYellowColor"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                         <state key="normal" title="胸">
@@ -95,7 +125,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kbz-aE-4oX">
-                                        <rect key="frame" x="255" y="0.0" width="60" height="60"/>
+                                        <rect key="frame" x="261" y="0.0" width="60" height="60"/>
                                         <color key="backgroundColor" systemColor="systemBlueColor"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                         <state key="normal" title="腹">
@@ -108,67 +138,25 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="jiM-Rb-IJf"/>
-                                </constraints>
-                            </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="19" translatesAutoresizingMaskIntoConstraints="NO" id="XtW-c5-iGN">
-                                <rect key="frame" x="80" y="551" width="215" height="60"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1v0-LB-O0M">
-                                        <rect key="frame" x="0.0" y="0.0" width="59" height="60"/>
-                                        <color key="backgroundColor" systemColor="systemPurpleColor"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
-                                        <state key="normal" title="背">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="senaka:" destination="MJX-go-1ZO" eventType="touchUpInside" id="wCN-qs-rJa"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hoF-yK-GR3">
-                                        <rect key="frame" x="78" y="0.0" width="59" height="60"/>
-                                        <color key="backgroundColor" systemColor="systemTealColor"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
-                                        <state key="normal" title="脚">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="ashi:" destination="MJX-go-1ZO" eventType="touchUpInside" id="n09-QD-cd2"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xbr-He-mJR">
-                                        <rect key="frame" x="156" y="0.0" width="59" height="60"/>
-                                        <color key="backgroundColor" systemColor="systemOrangeColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="50"/>
-                                        <state key="normal" title="🏃‍♂️"/>
-                                        <connections>
-                                            <action selector="yuu:" destination="MJX-go-1ZO" eventType="touchUpInside" id="CxI-W9-hb3"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="UxB-c3-dS6"/>
+                                    <constraint firstAttribute="height" constant="60" id="0vt-nW-DUg"/>
+                                    <constraint firstAttribute="width" constant="321" id="IdK-hf-GKN"/>
                                 </constraints>
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="K0m-5Z-eZi"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="GYC-cg-AJq" firstAttribute="leading" secondItem="K0m-5Z-eZi" secondAttribute="leading" id="4D0-Bp-n7u"/>
-                            <constraint firstItem="svT-be-nfC" firstAttribute="trailing" secondItem="K0m-5Z-eZi" secondAttribute="trailing" id="761-lC-krJ"/>
-                            <constraint firstItem="4gf-Ea-UGz" firstAttribute="top" secondItem="svT-be-nfC" secondAttribute="bottom" constant="8" symbolic="YES" id="AFj-H0-iN7"/>
-                            <constraint firstItem="ROM-mn-IIU" firstAttribute="bottom" secondItem="K0m-5Z-eZi" secondAttribute="bottom" id="Avj-e0-9Q6"/>
-                            <constraint firstItem="svT-be-nfC" firstAttribute="top" secondItem="GYC-cg-AJq" secondAttribute="bottom" constant="8" symbolic="YES" id="Cpu-fG-hZb"/>
-                            <constraint firstItem="svT-be-nfC" firstAttribute="leading" secondItem="K0m-5Z-eZi" secondAttribute="leading" id="Crn-cX-nlv"/>
-                            <constraint firstItem="4gf-Ea-UGz" firstAttribute="leading" secondItem="K0m-5Z-eZi" secondAttribute="leading" constant="29" id="IhU-DR-iJd"/>
-                            <constraint firstItem="GYC-cg-AJq" firstAttribute="top" secondItem="K0m-5Z-eZi" secondAttribute="top" id="U2C-cA-UuL"/>
-                            <constraint firstItem="ROM-mn-IIU" firstAttribute="leading" secondItem="K0m-5Z-eZi" secondAttribute="leading" constant="29" id="iiD-90-AMv"/>
-                            <constraint firstItem="XtW-c5-iGN" firstAttribute="leading" secondItem="K0m-5Z-eZi" secondAttribute="leading" constant="80" id="jQY-0t-yd0"/>
-                            <constraint firstItem="K0m-5Z-eZi" firstAttribute="trailing" secondItem="ROM-mn-IIU" secondAttribute="trailing" constant="31" id="mbW-Vm-qro"/>
-                            <constraint firstItem="GYC-cg-AJq" firstAttribute="trailing" secondItem="K0m-5Z-eZi" secondAttribute="trailing" id="o40-Ka-eBL"/>
-                            <constraint firstItem="K0m-5Z-eZi" firstAttribute="trailing" secondItem="4gf-Ea-UGz" secondAttribute="trailing" constant="31" id="ozh-ML-c4Q"/>
-                            <constraint firstItem="K0m-5Z-eZi" firstAttribute="trailing" secondItem="XtW-c5-iGN" secondAttribute="trailing" constant="80" id="pfZ-WY-Nfg"/>
-                            <constraint firstItem="XtW-c5-iGN" firstAttribute="top" secondItem="4gf-Ea-UGz" secondAttribute="bottom" constant="8" symbolic="YES" id="wBx-MY-9tk"/>
+                            <constraint firstItem="XtW-c5-iGN" firstAttribute="top" secondItem="4gf-Ea-UGz" secondAttribute="bottom" constant="20" id="6dI-sI-v4u"/>
+                            <constraint firstItem="GYC-cg-AJq" firstAttribute="leading" secondItem="K0m-5Z-eZi" secondAttribute="leading" id="A6s-2b-ctq"/>
+                            <constraint firstItem="GYC-cg-AJq" firstAttribute="trailing" secondItem="K0m-5Z-eZi" secondAttribute="trailing" id="Hgx-Z9-K3u"/>
+                            <constraint firstItem="svT-be-nfC" firstAttribute="top" secondItem="GYC-cg-AJq" secondAttribute="bottom" id="J0u-tL-fLm"/>
+                            <constraint firstItem="4gf-Ea-UGz" firstAttribute="centerX" secondItem="miv-Em-VX7" secondAttribute="centerX" id="JgA-Yb-qJK"/>
+                            <constraint firstItem="svT-be-nfC" firstAttribute="leading" secondItem="K0m-5Z-eZi" secondAttribute="leading" id="Kn4-vc-fnv"/>
+                            <constraint firstItem="XtW-c5-iGN" firstAttribute="centerX" secondItem="miv-Em-VX7" secondAttribute="centerX" id="S7K-R2-dyd"/>
+                            <constraint firstItem="svT-be-nfC" firstAttribute="trailing" secondItem="K0m-5Z-eZi" secondAttribute="trailing" id="Uv2-s7-aj7"/>
+                            <constraint firstItem="K0m-5Z-eZi" firstAttribute="bottom" secondItem="XtW-c5-iGN" secondAttribute="bottom" constant="20" id="caD-sG-uZO"/>
+                            <constraint firstItem="GYC-cg-AJq" firstAttribute="top" secondItem="K0m-5Z-eZi" secondAttribute="top" id="djC-TN-IoB"/>
+                            <constraint firstItem="4gf-Ea-UGz" firstAttribute="top" secondItem="svT-be-nfC" secondAttribute="bottom" constant="25" id="zDq-bw-4CB"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="私の筋トレカレンダー" id="pta-jd-l0f">
@@ -189,7 +177,7 @@
                         <barButtonItem key="rightBarButtonItem" style="plain" id="dt4-DT-EJd">
                             <imageReference key="image" image="highlighter" catalog="system" symbolScale="large"/>
                             <connections>
-                                <segue destination="8Yf-wF-2vH" kind="push" id="0n1-db-twr"/>
+                                <segue destination="8Yf-wF-2vH" kind="show" id="DfT-qE-H2W"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -483,10 +471,10 @@
             </objects>
             <point key="canvasLocation" x="2525.5999999999999" y="465.51724137931035"/>
         </scene>
-        <!--Next View Controller-->
+        <!--Name Change Controller-->
         <scene sceneID="ec1-vC-JZ1">
             <objects>
-                <viewController storyboardIdentifier="nextVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="8Yf-wF-2vH" customClass="NextViewController" customModule="MyCalendarOfMuscle" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="nextVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="8Yf-wF-2vH" customClass="NameChangeController" customModule="MyCalendarOfMuscle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XLx-T0-T2s">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -509,7 +497,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y4U-uP-wrc">
                                 <rect key="frame" x="81" y="349" width="204" height="55"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="linkColor"/>
+                                <color key="backgroundColor" systemColor="systemOrangeColor"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                 <state key="normal" title="変更">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -607,7 +595,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="0n1-db-twr"/>
+        <segue reference="DfT-qE-H2W"/>
         <segue reference="pNe-Qw-GFu"/>
     </inferredMetricsTieBreakers>
     <resources>

@@ -78,4 +78,3 @@ let harasenakaashi = UIImage(named: "harasenakaashi")?.resized(toWidth: 53)
 let harasenakayuu = UIImage(named: "harasenakayuu")?.resized(toWidth: 53)
 let haraashiyuu = UIImage(named: "haraashiyuu")?.resized(toWidth: 53)
 let senakaashiyuu = UIImage(named: "senakaashiyuu")?.resized(toWidth: 53)
-

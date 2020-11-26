@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NextViewController: UIViewController, UITextFieldDelegate {
+class NameChangeController: UIViewController, UITextFieldDelegate {
     
     
     @IBOutlet weak var button: UIButton!
@@ -22,17 +22,9 @@ class NextViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        //ラベルとボタンの位置とサイズ
-        button.frame = CGRect(x: screenWidth/4, y: screenHeight/2, width: screenWidth/2, height: 60)
-        label.frame = CGRect(x: 0, y: screenHeight/3, width: screenWidth, height: 40)
-        calNameText.frame = CGRect(x: screenWidth/6, y: screenHeight/2.4, width: screenWidth * 2/3, height: 40)
-        
         
         calNameText.delegate = self
-        calNameText.borderStyle = .roundedRect
         self.overrideUserInterfaceStyle = .light
-        button.backgroundColor = .systemOrange
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowRadius = 3
         button.layer.shadowOffset = CGSize(width: 2, height: 2)

@@ -10,7 +10,7 @@
 		D8190BB32542B52400FE333E /* CheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8190BB22542B52400FE333E /* CheckViewController.swift */; };
 		D85E36DE253D885300EBAFC9 /* ImageList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85E36DD253D885300EBAFC9 /* ImageList.swift */; };
 		D85E36E2253D896800EBAFC9 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85E36E1253D896800EBAFC9 /* AddViewController.swift */; };
-		D85E36E5253D897900EBAFC9 /* NextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85E36E4253D897900EBAFC9 /* NextViewController.swift */; };
+		D85E36E5253D897900EBAFC9 /* NameChangeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85E36E4253D897900EBAFC9 /* NameChangeController.swift */; };
 		D85E36E8253D898800EBAFC9 /* CountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85E36E7253D898800EBAFC9 /* CountViewController.swift */; };
 		D880DB9A2566433D0094B7BE /* SearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D880DB992566433D0094B7BE /* SearchModel.swift */; };
 		D880DB9D256648720094B7BE /* MenuData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D880DB9C256648720094B7BE /* MenuData.swift */; };
@@ -30,7 +30,7 @@
 		D8190BB22542B52400FE333E /* CheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckViewController.swift; sourceTree = "<group>"; };
 		D85E36DD253D885300EBAFC9 /* ImageList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageList.swift; sourceTree = "<group>"; };
 		D85E36E1253D896800EBAFC9 /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
-		D85E36E4253D897900EBAFC9 /* NextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextViewController.swift; sourceTree = "<group>"; };
+		D85E36E4253D897900EBAFC9 /* NameChangeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameChangeController.swift; sourceTree = "<group>"; };
 		D85E36E7253D898800EBAFC9 /* CountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountViewController.swift; sourceTree = "<group>"; };
 		D880DB992566433D0094B7BE /* SearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModel.swift; sourceTree = "<group>"; };
 		D880DB9C256648720094B7BE /* MenuData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuData.swift; sourceTree = "<group>"; };
@@ -101,7 +101,7 @@
 				D8CC2EA9253D83B6006F9D36 /* ViewController.swift */,
 				D8190BB22542B52400FE333E /* CheckViewController.swift */,
 				D85E36E1253D896800EBAFC9 /* AddViewController.swift */,
-				D85E36E4253D897900EBAFC9 /* NextViewController.swift */,
+				D85E36E4253D897900EBAFC9 /* NameChangeController.swift */,
 				D85E36E7253D898800EBAFC9 /* CountViewController.swift */,
 			);
 			path = Controller;
@@ -253,7 +253,7 @@
 				D85E36E2253D896800EBAFC9 /* AddViewController.swift in Sources */,
 				D8190BB32542B52400FE333E /* CheckViewController.swift in Sources */,
 				D880DB9D256648720094B7BE /* MenuData.swift in Sources */,
-				D85E36E5253D897900EBAFC9 /* NextViewController.swift in Sources */,
+				D85E36E5253D897900EBAFC9 /* NameChangeController.swift in Sources */,
 				D880DB9A2566433D0094B7BE /* SearchModel.swift in Sources */,
 				D8CC2EAA253D83B6006F9D36 /* ViewController.swift in Sources */,
 				D85E36DE253D885300EBAFC9 /* ImageList.swift in Sources */,

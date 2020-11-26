@@ -15,6 +15,8 @@ class SearchModel{
         let positionArray = menuData.position
         
         switch positionArray.count {
+        case 0:
+            return nil
         case 1:
             if positionArray.contains("腕"){
                 return udeImg

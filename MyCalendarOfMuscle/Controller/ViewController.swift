@@ -139,11 +139,11 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
         formatter.dateStyle = .short
         formatter.timeStyle = .none
         
-        var image = UIImage()
+        var image:UIImage?
         
         if let data = userDefaults.value(forKey: "\(formatter.string(from: date))") as? Data{
             let a = try? PropertyListDecoder().decode(MenuData.self, from: data)
-            image = searchModel.searchPosition(menuData: a!)!
+            image = searchModel.searchPosition(menuData: a!)
         }
         return image
     }
@@ -167,22 +167,21 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
             menuData = decodeData!
         }
         
+        //その日付のトレーニングの数
         switch menuData.position.count {
         case 0:
             menuData.position.append(position)
             menuData.menu1.append(position)
             present(addTable, animated: true, completion: nil)
-        
         case 1:
+            //その日付のトレーニングにタップしたトレーニングが既にあるか
             if menuData.position.contains(position){
                 HensyuOrTorikeshi(position: position)
             }else{
                 menuData.position.append(position)
                 menuData.menu2.append(position)
                 present(addTable, animated: true, completion: nil)
-
             }
-            
         case 2:
             if menuData.position.contains(position){
                 HensyuOrTorikeshi(position: position)
@@ -190,7 +189,6 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
                 menuData.position.append(position)
                 menuData.menu3.append(position)
                 present(addTable, animated: true, completion: nil)
-
             }
         case 3:
             if menuData.position.contains(position){
@@ -198,14 +196,11 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
             }else{
                 Alert()
             }
-            
         default:
             break
         }
-                
         saveDB()
         cal.reloadData()
-
         }
     
     
@@ -219,7 +214,7 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
     
     func ButtuonShadow(position: UIButton){
         //ボタンに影をつけて丸にする
-        position.layer.cornerRadius = position.bounds.height/2
+        position.layer.cornerRadius = position.bounds.width/2
         position.layer.shadowColor = UIColor.black.cgColor
         position.layer.shadowRadius = 3
         position.layer.shadowOffset = CGSize(width: 2, height: 2)
