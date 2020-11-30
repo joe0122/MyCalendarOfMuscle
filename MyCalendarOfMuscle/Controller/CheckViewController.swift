@@ -13,6 +13,7 @@ class CheckViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSou
     
     
     @IBOutlet weak var calView2: FSCalendar!
+    @IBOutlet weak var tableView: UITableView!
     
     let menuLabel2 = UILabel()
 
@@ -25,7 +26,6 @@ class CheckViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSou
     let screenWidth = UIScreen.main.bounds.width
     let screenHeight = UIScreen.main.bounds.height
     
-    var tableView = UITableView()
     var dayMenu = [String]()
     var sectionArray = [String]()
     
@@ -41,6 +41,9 @@ class CheckViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSou
     var tapYear = String()
     var tapMonth = String()
     var tapDay = String()
+    
+    var menuData = MenuData()
+    let searchModel = SearchModel()
 
     
     override func viewDidLoad() {
@@ -57,24 +60,9 @@ class CheckViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSou
             .foregroundColor: UIColor.white
         ]
         
-        let tabHeight = tabBarController?.tabBar.frame.size.height
-        
-        //カレンダーのサイズ
-        calView2.frame = CGRect(x: 0, y: naviBarHeight! + statusHeight, width: screenWidth, height: screenHeight/2)
-        
         //今日の日付を月日のStringにする
         formatter.dateStyle = .short
         formatter.timeStyle = .none
-        
-        //ラベルの詳細
-        menuLabel2.layer.frame = CGRect(x: 0, y: calView2.frame.size.height + naviBarHeight! + statusHeight, width: screenWidth, height: 20)
-        menuLabel2.text = "日のトレーニングメニュー"
-        menuLabel2.textAlignment = .center
-        menuLabel2.textColor = .white
-        menuLabel2.font = .boldSystemFont(ofSize: 15)
-        menuLabel2.backgroundColor = .systemOrange
-        self.view.addSubview(menuLabel2)
-        
         
         calView2.dataSource = self
         calView2.delegate = self
@@ -97,10 +85,6 @@ class CheckViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSou
         calView2.calendarWeekdayView.weekdayLabels[4].textColor = UIColor.black
         calView2.calendarWeekdayView.weekdayLabels[5].textColor = UIColor.black
         calView2.calendarWeekdayView.weekdayLabels[6].textColor = UIColor.blue
-        
-        self.view.addSubview(tableView)
-
-        tableView.frame = CGRect(x: 0, y: statusHeight + naviBarHeight! + screenHeight/2 + 20, width: screenWidth, height: screenHeight - (statusHeight + naviBarHeight! + screenHeight/2 + 20 + tabHeight!))
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -327,184 +311,17 @@ class CheckViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSou
         formatter.dateStyle = .short
         formatter.timeStyle = .none
         
-        if userDefaults.stringArray(forKey: formatter.string(from: date)) == nil{
-            return nil
-        }else{
-            
-            let a = userDefaults.stringArray(forKey: formatter.string(from: date))!
-            
-            if a.count == 0{
-                return nil
-            }else if a.count == 1{
-                if a.contains("腕"){
-                    return udeImg
-                }else if a.contains("肩"){
-                    return kataImg
-                }else if a.contains("胸"){
-                    return muneImg
-                }else if a.contains("腹"){
-                    return haraImg
-                }else if a.contains("背"){
-                    return senakaImg
-                }else if a.contains("脚"){
-                    return ashiImg
-                }else if a.contains("有"){
-                    return yuuImg
-                }
-            }else if a.count == 2{
-                if a.contains("腕"){
-                    if a.contains("肩"){
-                        return udekata
-                    }else if a.contains("胸"){
-                        return udemune
-                    }else if a.contains("腹"){
-                        return udehara
-                    }else if a.contains("背"){
-                        return udesenaka
-                    }else if a.contains("脚"){
-                        return udeashi
-                    }else if a.contains("有"){
-                        return udeyuu
-                    }
-                }else if a.contains("肩"){
-                    if a.contains("胸"){
-                        return katamune
-                    }else if a.contains("腹"){
-                        return katahara
-                    }else if a.contains("背"){
-                        return katasenaka
-                    }else if a.contains("脚"){
-                        return kataashi
-                    }else if a.contains("有"){
-                        return katayuu
-                    }
-                }else if a.contains("胸"){
-                    if a.contains("腹"){
-                        return munehara
-                    }else if a.contains("背"){
-                        return munesenaka
-                    }else if a.contains("脚"){
-                        return muneashi
-                    }else if a.contains("有"){
-                        return muneyuu
-                    }
-                }else if a.contains("腹"){
-                    if a.contains("背"){
-                        return harasenaka
-                    }else if a.contains("脚"){
-                        return haraashi
-                    }else if a.contains("有"){
-                        return harayuu
-                    }
-                }else if a.contains("背"){
-                    if a.contains("脚"){
-                        return senakaashi
-                    }else if a.contains("有"){
-                        return senakayuu
-                    }
-                }else{
-                        return ashiyuu
-                    }
-            }else if a.count == 3{
-                if a.contains("腕") && a.contains("肩"){
-                    if a.contains("胸"){
-                        return udekatamune
-                    }else if a.contains("腹"){
-                        return udekatahara
-                    }else if a.contains("背"){
-                        return udekatasenaka
-                    }else if a.contains("脚"){
-                        return udekataashi
-                    }else if a.contains("有"){
-                        return udekatayuu
-                    }
-                }else if a.contains("腕") && a.contains("胸"){
-                    if a.contains("腹"){
-                        return udemunehara
-                    }else if a.contains("背"){
-                        return udemunesenaka
-                    }else if a.contains("脚"){
-                        return udemuneashi
-                    }else if a.contains("有"){
-                        return udemuneyuu
-                    }
-                }else if a.contains("腕") && a.contains("腹"){
-                    if a.contains("背"){
-                        return udeharasenaka
-                    }else if a.contains("脚"){
-                        return udeharaashi
-                    }else if a.contains("有"){
-                        return udeharayuu
-                    }
-                }else if a.contains("腕") && a.contains("背"){
-                    if a.contains("脚"){
-                        return udesenakaashi
-                    }else if a.contains("有"){
-                        return udesenakayuu
-                    }
-                }else if a.contains("腕") && a.contains("脚"){
-                    return udeashiyuu
-                }else if a.contains("肩") && a.contains("胸"){
-                    if a.contains("腹"){
-                        return katamunehara
-                    }else if a.contains("背"){
-                        return katamunesenaka
-                    }else if a.contains("脚"){
-                        return katamuneashi
-                    }else if a.contains("有"){
-                        return katamuneyuu
-                    }
-                }else if a.contains("肩") && a.contains("腹"){
-                    if a.contains("背"){
-                        return kataharasenaka
-                    }else if a.contains("脚"){
-                        return kataharaashi
-                    }else if a.contains("有"){
-                        return kataharayuu
-                    }
-                }else if a.contains("肩") && a.contains("背"){
-                    if a.contains("脚"){
-                        return katasenakaashi
-                    }else if a.contains("有"){
-                        return katasenakayuu
-                    }
-                }else if a.contains("肩") && a.contains("脚"){
-                    return kataashiyuu
-                }else if a.contains("胸") && a.contains("腹"){
-                    if a.contains("背"){
-                        return muneharasenaka
-                    }else if a.contains("脚"){
-                        return muneharaashi
-                    }else if a.contains("有"){
-                        return muneharayuu
-                    }
-                }else if a.contains("胸") && a.contains("背"){
-                    if a.contains("脚"){
-                        return munesenakaashi
-                    }else{
-                        return munesenakayuu
-                    }
-                }else if a.contains("胸") && a.contains("脚"){
-                    return muneashiyuu
-                }else if a.contains("腹") && a.contains("背"){
-                    if a.contains("脚"){
-                        return harasenakaashi
-                    }else{
-                        return harasenakayuu
-                    }
-                }else if a.contains("腹") && a.contains("脚"){
-                    return haraashiyuu
-                }else{
-                    return senakaashiyuu
-                }
-            }
-            return UIImage()
+        var image:UIImage?
+        
+        if let data = userDefaults.value(forKey: "\(formatter.string(from: date))") as? Data{
+            let imageData = try? PropertyListDecoder().decode(MenuData.self, from: data)
+            image = searchModel.searchPosition(menuData: imageData!)
         }
+        return image
     }
     
     @IBAction func jump(_ sender: Any) {
         calView2.currentPage = today
-
     }
     
     

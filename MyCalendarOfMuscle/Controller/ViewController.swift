@@ -142,8 +142,8 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
         var image:UIImage?
         
         if let data = userDefaults.value(forKey: "\(formatter.string(from: date))") as? Data{
-            let a = try? PropertyListDecoder().decode(MenuData.self, from: data)
-            image = searchModel.searchPosition(menuData: a!)
+            let imageData = try? PropertyListDecoder().decode(MenuData.self, from: data)
+            image = searchModel.searchPosition(menuData: imageData!)
         }
         return image
     }
