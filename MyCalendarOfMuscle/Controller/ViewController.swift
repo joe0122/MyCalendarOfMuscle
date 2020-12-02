@@ -47,9 +47,7 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
         navigationController?.navigationBar.barTintColor = .systemOrange
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.barStyle = .black
-        navigationController?.navigationBar.titleTextAttributes = [
-            .foregroundColor: UIColor.white
-        ]
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
         
         //ボタンを丸にして影をつける
         ButtuonShadow(position: ude)
@@ -108,8 +106,6 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
         selectDay = formatter.string(from: date)
     }
     
-    
-    
     @IBAction func ude(_ sender: Any) {
         buttonPush(position: "腕")
     }
@@ -150,7 +146,7 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
     
     
     func saveDB(){
-        userDefaults.set(try? PropertyListEncoder().encode(menuData), forKey: "\(selectDay)")
+        userDefaults.set(try? PropertyListEncoder().encode(menuData), forKey: selectDay)
     }
     
     
@@ -200,6 +196,7 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
             break
         }
         saveDB()
+        addTable.menuData = menuData
         cal.reloadData()
         }
     

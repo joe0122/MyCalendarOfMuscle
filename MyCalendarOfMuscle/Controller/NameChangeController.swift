@@ -48,11 +48,6 @@ class NameChangeController: UIViewController, UITextFieldDelegate {
         }else{
             calVC.userDefaults.set(calNameText.text, forKey: "calName")
         }
-        
-        interCount += 1
-        print(interCount)
-        
-        UserDefaults.standard.set(interCount, forKey: "interCount")
         self.navigationController?.popViewController(animated: true)
     }
     

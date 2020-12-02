@@ -37,21 +37,16 @@ class CountViewController: UIViewController {
     
     var position = [String]()
     var posiCount = [Double]()
+    
+    let userDefaults = UserDefaults.standard
+    
+    var menuData = MenuData()
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //ライトモードのみ、グラフが見づらいため
         self.overrideUserInterfaceStyle = .light
-        
-        
-        minusB.frame = CGRect(x: 15, y: screenHeight/5, width: 30, height: 40)
-        plusB.frame = CGRect(x: screenWidth - 45, y: screenHeight/5, width: 30, height: 40)
-
-        monthLabel.frame = CGRect(x: screenWidth/6, y: screenHeight/5, width: screenWidth * 2/3, height: 40)
-        monthLabel.textAlignment = .center
-        
-        pieChartView.frame = CGRect(x: 0, y: screenHeight/4, width: screenWidth, height: 400)
 
         formatter.dateStyle = .short
         formatter.timeStyle = .none
@@ -61,15 +56,12 @@ class CountViewController: UIViewController {
         
         month = Int(thisMonth)!
         year = Int(thisYear)!
-        print(month)
-        print(thisYear)
         monthLabel.text = "\(thisYear)年\(thisMonth)月"
-        
-        traningCheck(month: month, year: year)
-        
+                
         position = ["腕","肩","胸","腹","背","脚","有酸素"]
         posiCount = [udeCount,kataCount,muneCount,haraCount,senakaCount,ashiCount,yuuCount]
         
+        traningCheck(month: month, year: year)
         setPie(position: position, count: posiCount)
 
         self.tabBarController?.tabBar.isHidden = true
@@ -78,7 +70,6 @@ class CountViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.navigationItem.title = "戻る"
-
     }
     
     @IBAction func minus(_ sender: Any) {
@@ -117,115 +108,82 @@ class CountViewController: UIViewController {
         ashiCount = 0
         yuuCount = 0
         
-        var traning = [String]()
-
-        
         for i in 1...31{
             
-            if  month < 10{
-                if i < 10{
-                    if UserDefaults.standard.stringArray(forKey: "\(year)/0\(month)/0\(i)") != nil{
-                        traning = UserDefaults.standard.stringArray(forKey: "\(year)/0\(month)/0\(i)")!
-                    }else{
-                        traning = [""]
-                    }
-                }else{
-                    if UserDefaults.standard.stringArray(forKey: "\(year)/0\(month)/\(i)") != nil{
-                        traning = UserDefaults.standard.stringArray(forKey: "\(year)/0\(month)/\(i)")!
-                    }else{
-                        traning = [""]
-                    }
-                }
+            if i<10{
+                if let data = userDefaults.value(forKey: "\(year)/\(month)/0\(i)") as? Data{
+                    let decodeData = try? PropertyListDecoder().decode(MenuData.self, from: data)
+                    menuData = decodeData!
             }else{
-                if i < 10{
-                    if UserDefaults.standard.stringArray(forKey: "\(year)/\(month)/0\(i)") != nil{
-                        traning = UserDefaults.standard.stringArray(forKey: "\(year)/\(month)/0\(i)")!
-                    }else{
-                        traning = [""]
-                    }
-                }else{
-                    if UserDefaults.standard.stringArray(forKey: "\(year)/\(month)/\(i)") != nil{
-                        traning = UserDefaults.standard.stringArray(forKey: "\(year)/\(month)/\(i)")!
-                    }else{
-                        traning = [""]
-                        }
-                    }
-                }
-            
-                switch traning.count {
+                if let data = userDefaults.value(forKey: "\(year)/\(month)/\(i)") as? Data{
+                    let decodeData = try? PropertyListDecoder().decode(MenuData.self, from: data)
+                    menuData = decodeData!
+            }
+                switch menuData.position.count {
                 case 1:
-                    if traning[0] == "腕"{
+                    if menuData.position[0] == "腕"{
                         udeCount += 1
-                    }else if traning[0] == "肩"{
+                    }else if menuData.position[0] == "肩"{
                         kataCount += 1
-                    }else if traning[0] == "肩"{
-                        kataCount += 1
-                    }else if traning[0] == "胸"{
+                    }else if menuData.position[0] == "胸"{
                         muneCount += 1
-                    }else if traning[0] == "腹"{
+                    }else if menuData.position[0] == "腹"{
                         haraCount += 1
-                    }else if traning[0] == "背"{
+                    }else if menuData.position[0] == "背"{
                         senakaCount += 1
-                    }else if traning[0] == "脚"{
+                    }else if menuData.position[0] == "脚"{
                         ashiCount += 1
-                    }else if traning[0] == "有"{
+                    }else if menuData.position[0] == "有"{
                         yuuCount += 1
                     }
                 case 2:
-                    for j in 0...1{
-                        if traning[j] == "腕"{
+                    for j in 0..<2{
+                        if menuData.position[j] == "腕"{
                             udeCount += 1
-                        }else if traning[j] == "肩"{
+                        }else if menuData.position[j] == "肩"{
                             kataCount += 1
-                        }else if traning[j] == "肩"{
-                            kataCount += 1
-                        }else if traning[j] == "胸"{
+                        }else if menuData.position[j] == "胸"{
                             muneCount += 1
-                        }else if traning[j] == "腹"{
+                        }else if menuData.position[j] == "腹"{
                             haraCount += 1
-                        }else if traning[j] == "背"{
+                        }else if menuData.position[j] == "背"{
                             senakaCount += 1
-                        }else if traning[j] == "脚"{
+                        }else if menuData.position[j] == "脚"{
                             ashiCount += 1
-                        }else if traning[j] == "有"{
+                        }else if menuData.position[j] == "有"{
                             yuuCount += 1
                         }
                     }
                 case 3:
-                    for j in 0...2{
-                        if traning[j] == "腕"{
+                    for k in 0..<3{
+                        if menuData.position[k] == "腕"{
                             udeCount += 1
-                        }else if traning[j] == "肩"{
+                        }else if menuData.position[k] == "肩"{
                             kataCount += 1
-                        }else if traning[j] == "肩"{
-                            kataCount += 1
-                        }else if traning[j] == "胸"{
+                        }else if menuData.position[k] == "胸"{
                             muneCount += 1
-                        }else if traning[j] == "腹"{
+                        }else if menuData.position[k] == "腹"{
                             haraCount += 1
-                        }else if traning[j] == "背"{
+                        }else if menuData.position[k] == "背"{
                             senakaCount += 1
-                        }else if traning[j] == "脚"{
+                        }else if menuData.position[k] == "脚"{
                             ashiCount += 1
-                        }else if traning[j] == "有"{
+                        }else if menuData.position[k] == "有"{
                             yuuCount += 1
                         }
                     }
-                    
                 default:
                     break
                 }
-
+                menuData = MenuData()
+            }
         }
-        
-        posiCount = [udeCount,kataCount,muneCount,haraCount,senakaCount,ashiCount,yuuCount]
-        
     }
-    
+        posiCount = [udeCount,kataCount,muneCount,haraCount,senakaCount,ashiCount,yuuCount]
+}
     func setPie(position: [String], count: [Double]){
         
-        
-        pieChartView.removeFromSuperview()
+        pieChartView.reloadInputViews()
 
         pieChartView.rotationEnabled = false
         pieChartView.centerText = "腕:\(Int(udeCount))回\n肩:\(Int(kataCount))回\n胸:\(Int(muneCount))回\n腹:\(Int(haraCount))回\n背中:\(Int(senakaCount))回\n脚:\(Int(ashiCount))回\n有酸素:\(Int(yuuCount))回\n合計:\(Int(udeCount + kataCount + muneCount + haraCount + senakaCount + ashiCount + yuuCount))回"
@@ -275,8 +233,6 @@ class CountViewController: UIViewController {
         dataSet.colors = colors
         data.setValueFormatter(DefaultValueFormatter(formatter: formatter))
         pieChartView.data = data
-
-        view.addSubview(pieChartView)
     }
     
 }

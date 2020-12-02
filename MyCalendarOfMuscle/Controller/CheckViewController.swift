@@ -14,29 +14,17 @@ class CheckViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSou
     
     @IBOutlet weak var calView2: FSCalendar!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var dayLabel: UILabel!
     
-    let menuLabel2 = UILabel()
-
     let userDefaults = UserDefaults.standard
     let formatter = DateFormatter()
     var traning = [String]()
 
     var selectDay = ""
     let today = Date()
-    let screenWidth = UIScreen.main.bounds.width
-    let screenHeight = UIScreen.main.bounds.height
     
     var dayMenu = [String]()
     var sectionArray = [String]()
-    
-    //腕や肩などの部位(keyで扱うため)
-    var dayPosition1 = String()
-    var dayPosition2 = String()
-    var dayPosition3 = String()
-    //細かい部位ごとの登録してあるその日のトレーニングメニュー
-    var dayPosiMenu1 = [String]()
-    var dayPosiMenu2 = [String]()
-    var dayPosiMenu3 = [String]()
     
     var tapYear = String()
     var tapMonth = String()
@@ -52,21 +40,18 @@ class CheckViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSou
         self.overrideUserInterfaceStyle = .light
 
         //ナビゲーションバーの詳細
-        let naviBarHeight = navigationController?.navigationBar.frame.size.height
         navigationController?.navigationBar.barTintColor = .systemOrange
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.barStyle = .black
-        navigationController?.navigationBar.titleTextAttributes = [
-            .foregroundColor: UIColor.white
-        ]
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
         
         //今日の日付を月日のStringにする
         formatter.dateStyle = .short
         formatter.timeStyle = .none
+        selectDay = formatter.string(from: today)
         
         calView2.dataSource = self
         calView2.delegate = self
-        
         
         //曜日のラベルを日本語表記に
         calView2.calendarWeekdayView.weekdayLabels[0].text = "日"
@@ -76,7 +61,6 @@ class CheckViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSou
         calView2.calendarWeekdayView.weekdayLabels[4].text = "木"
         calView2.calendarWeekdayView.weekdayLabels[5].text = "金"
         calView2.calendarWeekdayView.weekdayLabels[6].text = "土"
-        
         //曜日のラベルの色を変更(平日を黒、土曜を青、日曜を赤)
         calView2.calendarWeekdayView.weekdayLabels[0].textColor = UIColor.red
         calView2.calendarWeekdayView.weekdayLabels[1].textColor = UIColor.black
@@ -89,10 +73,20 @@ class CheckViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSou
         tableView.dataSource = self
         tableView.delegate = self
         
-        
         if userDefaults.stringArray(forKey: selectDay) != nil{
             dayMenu = userDefaults.stringArray(forKey: selectDay)!
         }
+        
+        if let data = userDefaults.value(forKey: selectDay) as? Data{
+            let decodeData = try? PropertyListDecoder().decode(MenuData.self, from: data)
+            menuData = decodeData!
+            print(menuData.position)
+
+        }
+        
+        print(menuData.position)
+        tableView.reloadData()
+        calView2.reloadData()
                 
     }
     
@@ -107,70 +101,7 @@ class CheckViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSou
             navigationItem.title = userDefaults.string(forKey: "calName")
         }
         
-        
-        if userDefaults.stringArray(forKey: "tapDate") != nil{
-        
-            let dateArray = userDefaults.stringArray(forKey: "tapDate")
-            
-            let a = Calendar.current
-            let b = a.date(from: DateComponents(year: Int(dateArray![0])!, month: Int(dateArray![1])!, day: Int(dateArray![2])!))
-            calView2.select(b)
-            
-        }
-        
-        if userDefaults.string(forKey: "day") != nil{
-            selectDay = userDefaults.string(forKey: "day")!
-            menuLabel2.text = "\(selectDay.dropFirst(5))日のトレーニングメニュー"
-        }
-        
-        //ここから下はdidselect(FScalendar)の時と同じプログラムで、ホームからタブで遷移した際にホームで選択していた日付のメニューを表示させるようにした。
-        dayPosition1.removeAll()
-        dayPosition2.removeAll()
-        dayPosition3.removeAll()
-        
-        dayPosiMenu1.removeAll()
-        dayPosiMenu2.removeAll()
-        dayPosiMenu3.removeAll()
-        
-        dayMenu.removeAll()
-        
-        //nil判定
-        if userDefaults.stringArray(forKey: selectDay) != nil{
-            dayMenu = userDefaults.stringArray(forKey: selectDay)!
-        }else if userDefaults.stringArray(forKey: selectDay) == nil{
-            dayMenu.removeAll()
-            userDefaults.set(dayMenu, forKey: selectDay)
-        }
-        //この関数でメニューの詳細を管理するString配列,tableViewのsectionを作成
-        sectionCreate()
-        
-        switch dayMenu.count {
-        case 1:
-            if userDefaults.stringArray(forKey: "\(dayPosition1)\(selectDay)") != nil{
-                dayPosiMenu1 = userDefaults.stringArray(forKey: "\(dayPosition1)\(selectDay)")!
-            }
-        case 2:
-            if userDefaults.stringArray(forKey: "\(dayPosition1)\(selectDay)") != nil{
-                dayPosiMenu1 = userDefaults.stringArray(forKey: "\(dayPosition1)\(selectDay)")!
-            }
-            if userDefaults.stringArray(forKey: "\(dayPosition2)\(selectDay)") != nil{
-                dayPosiMenu2 = userDefaults.stringArray(forKey: "\(dayPosition2)\(selectDay)")!
-            }
-        case 3:
-            if userDefaults.stringArray(forKey: "\(dayPosition1)\(selectDay)") != nil{
-                dayPosiMenu1 = userDefaults.stringArray(forKey: "\(dayPosition1)\(selectDay)")!
-            }
-            if userDefaults.stringArray(forKey: "\(dayPosition2)\(selectDay)") != nil{
-                dayPosiMenu2 = userDefaults.stringArray(forKey: "\(dayPosition2)\(selectDay)")!
-            }
-            if userDefaults.stringArray(forKey: "\(dayPosition3)\(selectDay)") != nil{
-                dayPosiMenu3 = userDefaults.stringArray(forKey: "\(dayPosition3)\(selectDay)")!
-            }
-            
-        default:
-            break
-        }
-        
+        dayLabel.text = "\(selectDay)日のトレーニングメニュー"
         tableView.reloadData()
         calView2.reloadData()
 
@@ -182,122 +113,76 @@ class CheckViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSou
         formatter.timeStyle = .none
         selectDay = formatter.string(from: date)
         
-        //シュミレーターと実機でselectDayの取り方が変わる
-        //コメントアウトしてる方はシュミレータで正しく動く方
-        menuLabel2.text = "\(selectDay.dropFirst(5))日のトレーニングメニュー"
-        
-        //menuLabel2.text = "\(selectDay.dropLast(3))日のトレーニングメニュー"
-        
-        dayPosition1.removeAll()
-        dayPosition2.removeAll()
-        dayPosition3.removeAll()
-        
-        dayPosiMenu1.removeAll()
-        dayPosiMenu2.removeAll()
-        dayPosiMenu3.removeAll()
-        
-        dayMenu.removeAll()
-        
-        //nil判定
-        if userDefaults.stringArray(forKey: selectDay) != nil{
-            dayMenu = userDefaults.stringArray(forKey: selectDay)!
-        }else if userDefaults.stringArray(forKey: selectDay) == nil{
-            dayMenu.removeAll()
-            userDefaults.set(dayMenu, forKey: selectDay)
+        if let data = userDefaults.value(forKey: selectDay) as? Data{
+            let decodeData = try? PropertyListDecoder().decode(MenuData.self, from: data)
+            menuData = decodeData!
+            print(menuData.position)
+
         }
-        
-        //この関数でメニューの詳細を管理するString配列,tableViewのsectionを作成
-        sectionCreate()
-        
-        switch dayMenu.count {
-        case 1:
-            if userDefaults.stringArray(forKey: "\(dayPosition1)\(selectDay)") != nil{
-                dayPosiMenu1 = userDefaults.stringArray(forKey: "\(dayPosition1)\(selectDay)")!
-            }
-        case 2:
-            if userDefaults.stringArray(forKey: "\(dayPosition1)\(selectDay)") != nil{
-                dayPosiMenu1 = userDefaults.stringArray(forKey: "\(dayPosition1)\(selectDay)")!
-            }
-            if userDefaults.stringArray(forKey: "\(dayPosition2)\(selectDay)") != nil{
-                dayPosiMenu2 = userDefaults.stringArray(forKey: "\(dayPosition2)\(selectDay)")!
-            }
-        case 3:
-            if userDefaults.stringArray(forKey: "\(dayPosition1)\(selectDay)") != nil{
-                dayPosiMenu1 = userDefaults.stringArray(forKey: "\(dayPosition1)\(selectDay)")!
-            }
-            if userDefaults.stringArray(forKey: "\(dayPosition2)\(selectDay)") != nil{
-                dayPosiMenu2 = userDefaults.stringArray(forKey: "\(dayPosition2)\(selectDay)")!
-            }
-            if userDefaults.stringArray(forKey: "\(dayPosition3)\(selectDay)") != nil{
-                dayPosiMenu3 = userDefaults.stringArray(forKey: "\(dayPosition3)\(selectDay)")!
-            }
-            
-        default:
-            break
-        }
+        dayLabel.text = "\(selectDay)日のトレーニングメニュー"
         
         tableView.reloadData()
-        calView2.reloadData()
-
-        
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return dayMenu.count
+        return menuData.position.count
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-            return sectionArray[section]
+        return menuData.position[section]
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         if section == 0{
-            if dayPosiMenu1.count == 0{
+            if menuData.menu1.count == 0{
+                return 0
+            }else if menuData.menu1.count == 1{
                 return 1
             }else{
-                return dayPosiMenu1.count
+                return menuData.menu1.count - 1
             }
         }else if section == 1{
-            if dayPosiMenu2.count == 0{
+            if menuData.menu2.count == 0{
+                return 0
+            }else if menuData.menu2.count == 1{
                 return 1
             }else{
-                return dayPosiMenu2.count
+                return menuData.menu2.count - 1
             }
         }else{
-            if dayPosiMenu3.count == 0{
+            if menuData.menu3.count == 0{
+                return 0
+            }else if menuData.menu3.count == 1{
                 return 1
             }else{
-                return dayPosiMenu3.count
+                return menuData.menu3.count - 1
             }
         }
     }
     
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        sectionCreate()
         
         let cell = UITableViewCell(style: .value1, reuseIdentifier: "")
         
         if indexPath.section == 0{
-            if dayPosiMenu1.count == 0{
+            if menuData.menu1.count == 1{
                 cell.textLabel?.text = "登録なし"
             }else{
-                cell.textLabel?.text = dayPosiMenu1[indexPath.row]
+                cell.textLabel?.text = menuData.menu1[indexPath.row + 1]
             }
         }else if indexPath.section == 1{
-            if dayPosiMenu2.count == 0{
+            if menuData.menu2.count == 1{
                 cell.textLabel?.text = "登録なし"
             }else{
                 //print(dayPosiMenu2)
-                cell.textLabel?.text = dayPosiMenu2[indexPath.row]
+                cell.textLabel?.text = menuData.menu2[indexPath.row + 1]
             }
         }else if indexPath.section == 2{
-            if dayPosiMenu3.count == 0{
+            if menuData.menu3.count == 1{
                 cell.textLabel?.text = "登録なし"
             }else{
-                cell.textLabel?.text = dayPosiMenu3[indexPath.row]
+                cell.textLabel?.text = menuData.menu3[indexPath.row + 1]
             }
         }
         
@@ -325,7 +210,6 @@ class CheckViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSou
     }
     
     
-    //カレンダーの休日判定↓ まあまあ長い
     fileprivate let gregorian: Calendar = Calendar(identifier: .gregorian)
     fileprivate lazy var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -380,432 +264,4 @@ class CheckViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSou
 
         return nil
     }
-    
-    
-    func sectionCreate(){
-        
-        let a = dayMenu
-        sectionArray.removeAll()
-        
-        /*セクションを作るのだが、どうしてもセクションの順とその日のトレーニング画像の順と揃えるため
-        このような面倒くさい関数にしてしまった。*/
-        
-        switch a.count {
-        case 0:
-            sectionArray = [""]
-        case 1:
-            //print("1だよ")
-            if a.contains("腕"){
-                sectionArray.append("腕")
-                dayPosition1 = "腕"
-            }else if a.contains("肩"){
-                sectionArray.append("肩")
-                dayPosition1 = "肩"
-            }else if a.contains("胸"){
-                sectionArray.append("胸")
-                dayPosition1 = "胸"
-            }else if a.contains("腹"){
-                sectionArray.append("腹")
-                dayPosition1 = "腹"
-            }else if a.contains("背"){
-                sectionArray.append("背")
-                dayPosition1 = "背"
-            }else if a.contains("脚"){
-                sectionArray.append("脚")
-                dayPosition1 = "脚"
-            }else if a.contains("有"){
-                sectionArray.append("有酸素")
-                dayPosition1 = "有"
-            }
-        case 2:
-            //print("2だよ")
-            if a.contains("腕"){
-                if a.contains("肩"){
-                    sectionArray.append("腕")
-                    sectionArray.append("肩")
-                    dayPosition1 = "腕"
-                    dayPosition2 = "肩"
-                }else if a.contains("胸"){
-                    sectionArray.append("腕")
-                    sectionArray.append("胸")
-                    dayPosition1 = "腕"
-                    dayPosition2 = "胸"
-                }else if a.contains("腹"){
-                    sectionArray.append("腕")
-                    sectionArray.append("腹")
-                    dayPosition1 = "腕"
-                    dayPosition2 = "腹"
-                }else if a.contains("背"){
-                    sectionArray.append("腕")
-                    sectionArray.append("背")
-                    dayPosition1 = "腕"
-                    dayPosition2 = "背"
-                }else if a.contains("脚"){
-                    sectionArray.append("腕")
-                    sectionArray.append("脚")
-                    dayPosition1 = "腕"
-                    dayPosition2 = "脚"
-                }else if a.contains("有"){
-                    sectionArray.append("腕")
-                    sectionArray.append("有酸素")
-                    dayPosition1 = "腕"
-                    dayPosition2 = "有"
-                }
-            }else if a.contains("肩"){
-                if a.contains("胸"){
-                    sectionArray.append("肩")
-                    sectionArray.append("胸")
-                    dayPosition1 = "肩"
-                    dayPosition2 = "胸"
-                }else if a.contains("腹"){
-                    sectionArray.append("肩")
-                    sectionArray.append("腹")
-                    dayPosition1 = "肩"
-                    dayPosition2 = "腹"
-                }else if a.contains("背"){
-                    sectionArray.append("肩")
-                    sectionArray.append("背")
-                    dayPosition1 = "肩"
-                    dayPosition2 = "背"
-                }else if a.contains("脚"){
-                    sectionArray.append("肩")
-                    sectionArray.append("脚")
-                    dayPosition1 = "肩"
-                    dayPosition2 = "脚"
-                }else if a.contains("有"){
-                    sectionArray.append("肩")
-                    sectionArray.append("有酸素")
-                    dayPosition1 = "肩"
-                    dayPosition2 = "有"
-                }
-            }else if a.contains("胸"){
-                if a.contains("腹"){
-                    sectionArray.append("胸")
-                    sectionArray.append("腹")
-                    dayPosition1 = "胸"
-                    dayPosition2 = "腹"
-                }else if a.contains("背"){
-                    sectionArray.append("胸")
-                    sectionArray.append("背")
-                    dayPosition1 = "胸"
-                    dayPosition2 = "背"
-                }else if a.contains("脚"){
-                    sectionArray.append("胸")
-                    sectionArray.append("脚")
-                    dayPosition1 = "胸"
-                    dayPosition2 = "脚"
-                }else if a.contains("有"){
-                    sectionArray.append("胸")
-                    sectionArray.append("有酸素")
-                    dayPosition1 = "胸"
-                    dayPosition2 = "有"
-                }
-            }else if a.contains("腹"){
-                if a.contains("背"){
-                    sectionArray.append("腹")
-                    sectionArray.append("背")
-                    dayPosition1 = "腹"
-                    dayPosition2 = "背"
-                }else if a.contains("脚"){
-                    sectionArray.append("腹")
-                    sectionArray.append("脚")
-                    dayPosition1 = "腹"
-                    dayPosition2 = "脚"
-                }else if a.contains("有"){
-                    sectionArray.append("腹")
-                    sectionArray.append("有酸素")
-                    dayPosition1 = "腹"
-                    dayPosition2 = "有"
-                }
-            }else if a.contains("背"){
-                if a.contains("脚"){
-                    sectionArray.append("背")
-                    sectionArray.append("脚")
-                    dayPosition1 = "背"
-                    dayPosition2 = "脚"
-                }else if a.contains("有"){
-                    sectionArray.append("背")
-                    sectionArray.append("有酸素")
-                    dayPosition1 = "背"
-                    dayPosition2 = "有"
-                }
-            }else{
-                sectionArray.append("脚")
-                sectionArray.append("有酸素")
-                dayPosition1 = "脚"
-                dayPosition2 = "有"
-                }
-        case 3:
-            //print("3だよ")
-            if a.contains("腕") && a.contains("肩"){
-                if a.contains("胸"){
-                    sectionArray.append("腕")
-                    sectionArray.append("肩")
-                    sectionArray.append("胸")
-                    dayPosition1 = "腕"
-                    dayPosition2 = "肩"
-                    dayPosition3 = "胸"
-                }else if a.contains("腹"){
-                    sectionArray.append("腕")
-                    sectionArray.append("肩")
-                    sectionArray.append("腹")
-                    dayPosition1 = "腕"
-                    dayPosition2 = "肩"
-                    dayPosition3 = "腹"
-                }else if a.contains("背"){
-                    sectionArray.append("腕")
-                    sectionArray.append("肩")
-                    sectionArray.append("背")
-                    dayPosition1 = "腕"
-                    dayPosition2 = "肩"
-                    dayPosition3 = "背"
-                }else if a.contains("脚"){
-                    sectionArray.append("腕")
-                    sectionArray.append("肩")
-                    sectionArray.append("脚")
-                    dayPosition1 = "腕"
-                    dayPosition2 = "肩"
-                    dayPosition3 = "脚"
-                }else if a.contains("有"){
-                    sectionArray.append("腕")
-                    sectionArray.append("肩")
-                    sectionArray.append("有酸素")
-                    dayPosition1 = "腕"
-                    dayPosition2 = "肩"
-                    dayPosition3 = "有"
-                }
-            }else if a.contains("腕") && a.contains("胸"){
-                if a.contains("腹"){
-                    sectionArray.append("腕")
-                    sectionArray.append("胸")
-                    sectionArray.append("腹")
-                    dayPosition1 = "腕"
-                    dayPosition2 = "胸"
-                    dayPosition3 = "腹"
-                }else if a.contains("背"){
-                    sectionArray.append("腕")
-                    sectionArray.append("胸")
-                    sectionArray.append("背")
-                    dayPosition1 = "腕"
-                    dayPosition2 = "胸"
-                    dayPosition3 = "背"
-                }else if a.contains("脚"){
-                    sectionArray.append("腕")
-                    sectionArray.append("胸")
-                    sectionArray.append("脚")
-                    dayPosition1 = "腕"
-                    dayPosition2 = "胸"
-                    dayPosition3 = "脚"
-                }else if a.contains("有"){
-                    sectionArray.append("腕")
-                    sectionArray.append("胸")
-                    sectionArray.append("有酸素")
-                    dayPosition1 = "腕"
-                    dayPosition2 = "胸"
-                    dayPosition3 = "有"
-                }
-            }else if a.contains("腕") && a.contains("腹"){
-                if a.contains("背"){
-                    sectionArray.append("腕")
-                    sectionArray.append("腹")
-                    sectionArray.append("背")
-                    dayPosition1 = "腕"
-                    dayPosition2 = "腹"
-                    dayPosition3 = "背"
-                }else if a.contains("脚"){
-                    sectionArray.append("腕")
-                    sectionArray.append("腹")
-                    sectionArray.append("脚")
-                    dayPosition1 = "腕"
-                    dayPosition2 = "腹"
-                    dayPosition3 = "脚"
-                }else if a.contains("有"){
-                    sectionArray.append("腕")
-                    sectionArray.append("腹")
-                    sectionArray.append("有酸素")
-                    dayPosition1 = "腕"
-                    dayPosition2 = "腹"
-                    dayPosition3 = "有"
-                }
-            }else if a.contains("腕") && a.contains("背"){
-                if a.contains("脚"){
-                    sectionArray.append("腕")
-                    sectionArray.append("背")
-                    sectionArray.append("脚")
-                    dayPosition1 = "腕"
-                    dayPosition2 = "背"
-                    dayPosition3 = "脚"
-                }else if a.contains("有"){
-                    sectionArray.append("腕")
-                    sectionArray.append("背")
-                    sectionArray.append("有酸素")
-                    dayPosition1 = "腕"
-                    dayPosition2 = "背"
-                    dayPosition3 = "有"
-                }
-            }else if a.contains("腕") && a.contains("脚"){
-                sectionArray.append("腕")
-                sectionArray.append("脚")
-                sectionArray.append("有酸素")
-                dayPosition1 = "腕"
-                dayPosition2 = "脚"
-                dayPosition3 = "有"
-            }else if a.contains("肩") && a.contains("胸"){
-                if a.contains("腹"){
-                    sectionArray.append("肩")
-                    sectionArray.append("胸")
-                    sectionArray.append("腹")
-                    dayPosition1 = "肩"
-                    dayPosition2 = "胸"
-                    dayPosition3 = "腹"
-                }else if a.contains("背"){
-                    sectionArray.append("肩")
-                    sectionArray.append("胸")
-                    sectionArray.append("背")
-                    dayPosition1 = "肩"
-                    dayPosition2 = "胸"
-                    dayPosition3 = "背"
-                }else if a.contains("脚"){
-                    sectionArray.append("肩")
-                    sectionArray.append("胸")
-                    sectionArray.append("脚")
-                    dayPosition1 = "肩"
-                    dayPosition2 = "胸"
-                    dayPosition3 = "脚"
-                }else if a.contains("有"){
-                    sectionArray.append("肩")
-                    sectionArray.append("胸")
-                    sectionArray.append("有酸素")
-                    dayPosition1 = "肩"
-                    dayPosition2 = "胸"
-                    dayPosition3 = "有"
-                }
-            }else if a.contains("肩") && a.contains("腹"){
-                if a.contains("背"){
-                    sectionArray.append("肩")
-                    sectionArray.append("腹")
-                    sectionArray.append("背")
-                    dayPosition1 = "肩"
-                    dayPosition2 = "腹"
-                    dayPosition3 = "背"
-                }else if a.contains("脚"){
-                    sectionArray.append("肩")
-                    sectionArray.append("腹")
-                    sectionArray.append("脚")
-                    dayPosition1 = "肩"
-                    dayPosition2 = "腹"
-                    dayPosition3 = "脚"
-                }else if a.contains("有"){
-                    sectionArray.append("肩")
-                    sectionArray.append("腹")
-                    sectionArray.append("有酸素")
-                    dayPosition1 = "肩"
-                    dayPosition2 = "腹"
-                    dayPosition3 = "有"
-                }
-            }else if a.contains("肩") && a.contains("背"){
-                if a.contains("脚"){
-                    sectionArray.append("肩")
-                    sectionArray.append("背")
-                    sectionArray.append("脚")
-                    dayPosition1 = "肩"
-                    dayPosition2 = "背"
-                    dayPosition3 = "脚"
-                }else if a.contains("有"){
-                    sectionArray.append("肩")
-                    sectionArray.append("背")
-                    sectionArray.append("有酸素")
-                    dayPosition1 = "肩"
-                    dayPosition2 = "背"
-                    dayPosition3 = "有"
-                }
-            }else if a.contains("肩") && a.contains("脚"){
-                sectionArray.append("肩")
-                sectionArray.append("脚")
-                sectionArray.append("有酸素")
-                dayPosition1 = "肩"
-                dayPosition2 = "脚"
-                dayPosition3 = "有"
-            }else if a.contains("胸") && a.contains("腹"){
-                if a.contains("背"){
-                    sectionArray.append("胸")
-                    sectionArray.append("腹")
-                    sectionArray.append("背")
-                    dayPosition1 = "胸"
-                    dayPosition2 = "腹"
-                    dayPosition3 = "背"
-                }else if a.contains("脚"){
-                    sectionArray.append("胸")
-                    sectionArray.append("腹")
-                    sectionArray.append("脚")
-                    dayPosition1 = "胸"
-                    dayPosition2 = "腹"
-                    dayPosition3 = "脚"
-                }else if a.contains("有"){
-                    sectionArray.append("胸")
-                    sectionArray.append("腹")
-                    sectionArray.append("有酸素")
-                    dayPosition1 = "胸"
-                    dayPosition2 = "腹"
-                    dayPosition3 = "有"
-                }
-            }else if a.contains("胸") && a.contains("背"){
-                if a.contains("脚"){
-                    sectionArray.append("胸")
-                    sectionArray.append("背")
-                    sectionArray.append("脚")
-                    dayPosition1 = "胸"
-                    dayPosition2 = "背"
-                    dayPosition3 = "脚"
-                }else{
-                    sectionArray.append("胸")
-                    sectionArray.append("背")
-                    sectionArray.append("有酸素")
-                    dayPosition1 = "胸"
-                    dayPosition2 = "背"
-                    dayPosition3 = "有"
-                }
-            }else if a.contains("胸") && a.contains("脚"){
-                sectionArray.append("胸")
-                sectionArray.append("脚")
-                sectionArray.append("有酸素")
-                dayPosition1 = "胸"
-                dayPosition2 = "脚"
-                dayPosition3 = "有"
-            }else if a.contains("腹") && a.contains("背"){
-                if a.contains("脚"){
-                    sectionArray.append("腹")
-                    sectionArray.append("背")
-                    sectionArray.append("脚")
-                    dayPosition1 = "腹"
-                    dayPosition2 = "背"
-                    dayPosition3 = "脚"
-                }else{
-                    sectionArray.append("腹")
-                    sectionArray.append("背")
-                    sectionArray.append("有酸素")
-                    dayPosition1 = "腹"
-                    dayPosition2 = "背"
-                    dayPosition3 = "有"
-                }
-            }else if a.contains("腹") && a.contains("脚"){
-                sectionArray.append("腹")
-                sectionArray.append("脚")
-                sectionArray.append("有酸素")
-                dayPosition1 = "腹"
-                dayPosition2 = "脚"
-                dayPosition3 = "有"
-            }else{
-                sectionArray.append("背")
-                sectionArray.append("脚")
-                sectionArray.append("有酸素")
-                dayPosition1 = "背"
-                dayPosition2 = "脚"
-                dayPosition3 = "有"
-                }
-        default:
-            break
-        }
-    }//関数のとじかっこ
-    
 }

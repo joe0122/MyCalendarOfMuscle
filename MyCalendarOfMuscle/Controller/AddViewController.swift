@@ -71,36 +71,40 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         traningNameLabel.attributedText = firstText
         
         }else if pushMenu == "肩"{
-        traningNameLabel.text = //"肩トレのメニュー(\(selectDay.dropFirst(5)))"
-        "肩トレのメニュー(10/20)"
+        traningNameLabel.text = "肩トレのメニュー(\(selectDay.dropFirst(5)))"
         traningNameLabel.font = UIFont.boldSystemFont(ofSize: 18)
         let firstText = NSMutableAttributedString(string: traningNameLabel.text!)
         firstText.addAttribute(.foregroundColor, value: UIColor.systemGreen, range: NSMakeRange(0, 1))
         traningNameLabel.attributedText = firstText
+            
         }else if pushMenu == "胸"{
         traningNameLabel.text = "胸トレのメニュー(\(selectDay.dropFirst(5)))"
         traningNameLabel.font = UIFont.boldSystemFont(ofSize: 18)
         let firstText = NSMutableAttributedString(string: traningNameLabel.text!)
         firstText.addAttribute(.foregroundColor, value: UIColor.systemYellow, range: NSMakeRange(0, 1))
         traningNameLabel.attributedText = firstText
+            
         }else if pushMenu == "腹"{
         traningNameLabel.text = "腹トレのメニュー(\(selectDay.dropFirst(5)))"
         traningNameLabel.font = UIFont.boldSystemFont(ofSize: 18)
         let firstText = NSMutableAttributedString(string: traningNameLabel.text!)
         firstText.addAttribute(.foregroundColor, value: UIColor.systemBlue, range: NSMakeRange(0, 1))
         traningNameLabel.attributedText = firstText
+            
         }else if pushMenu == "背"{
         traningNameLabel.text = "背中トレのメニュー(\(selectDay.dropFirst(5)))"
         traningNameLabel.font = UIFont.boldSystemFont(ofSize: 18)
         let firstText = NSMutableAttributedString(string: traningNameLabel.text!)
         firstText.addAttribute(.foregroundColor, value: UIColor.systemPurple, range: NSMakeRange(0, 1))
         traningNameLabel.attributedText = firstText
+            
         }else if pushMenu == "脚"{
         traningNameLabel.text = "脚トレのメニュー(\(selectDay.dropFirst(5)))"
         traningNameLabel.font = UIFont.boldSystemFont(ofSize: 18)
         let firstText = NSMutableAttributedString(string: traningNameLabel.text!)
         firstText.addAttribute(.foregroundColor, value: UIColor.systemTeal, range: NSMakeRange(0, 1))
         traningNameLabel.attributedText = firstText
+            
         }else if pushMenu == "有"{
         //有酸素の場合のみ単位を変更
         juuryoLabel.text = "距離"
@@ -138,16 +142,12 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             selectMenuArray.append(contentsOf: menuData.menu3.dropFirst())
         }
         
-        let a = UserDefaults.standard.stringArray(forKey: "\(pushMenu)\(selectDay)")
-        
         //すでに選択されていたトレーニングに予めチェックマークをつけておく
-        if a != nil{
-            for i in 0..<a!.count{
-                if cell.textLabel?.text == a![i]{
-                    cell.accessoryType = .checkmark
-                    cell.backgroundColor = .clear
-                    selectMenu.append((cell.textLabel?.text)!)
-                }
+        for i in 0..<selectMenuArray.count{
+            if cell.textLabel?.text == selectMenuArray[i]{
+                cell.accessoryType = .checkmark
+                cell.backgroundColor = .clear
+                selectMenu.append((cell.textLabel?.text)!)
             }
         }
         return cell
@@ -165,8 +165,6 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             cell?.selectionStyle = .none
             selectMenu.append((cell?.textLabel?.text)!)
         }
-        print(selectMenu)
-        
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
@@ -181,8 +179,6 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             cell?.selectionStyle = .none
             selectMenu.append((cell?.textLabel?.text)!)
         }
-        print(selectMenu)
-
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -190,12 +186,12 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
             menuArray.remove(at: indexPath.row)
             UserDefaults.standard.set(menuArray, forKey: pushMenu)
         }
-        
         tableView.reloadData()
     }
     
     @IBAction func addAction(_ sender: Any) {
                 
+        //メニューが入力されている場合
         if nameField.text != ""{
             //有酸素の場合だけ単位が違うので、分岐
             if pushMenu == "有"{
@@ -241,24 +237,26 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         nameField.text = ""
         weightField.text = ""
         setField.text = ""
-        
         nameField.endEditing(true)
         weightField.endEditing(true)
         setField.endEditing(true)
-
         tableView.reloadData()
-        
     }
+    
     @IBAction func touroku(_ sender: Any) {
         
         if menuData.menu1[0] == pushMenu{
-            menuData.menu1.insert(contentsOf: selectMenu, at: 1)
+            menuData.menu1.removeSubrange(1..<menuData.menu1.count)
+            menuData.menu1.append(contentsOf: selectMenu)
         }else if menuData.menu2[0] == pushMenu{
-            menuData.menu2.insert(contentsOf: selectMenu, at: 1)
+            menuData.menu2.removeSubrange(1..<menuData.menu2.count)
+            menuData.menu2.append(contentsOf: selectMenu)
         }else if menuData.menu3[0] == pushMenu{
-            menuData.menu3.insert(contentsOf: selectMenu, at: 1)
+            menuData.menu3.removeSubrange(1..<menuData.menu3.count)
+            menuData.menu3.append(contentsOf: selectMenu)
         }
         
+        userDefaults.set(try? PropertyListEncoder().encode(menuData), forKey: selectDay)
         dismiss(animated: true, completion: nil)
         
     }
