@@ -62,7 +62,6 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
         formatter.dateStyle = .short
         formatter.timeStyle = .none
         selectDay = formatter.string(from: today)
-        print(selectDay)
         
         cal.dataSource = self
         cal.delegate = self

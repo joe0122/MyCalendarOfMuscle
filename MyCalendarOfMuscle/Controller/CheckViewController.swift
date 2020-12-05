@@ -80,11 +80,9 @@ class CheckViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSou
         if let data = userDefaults.value(forKey: selectDay) as? Data{
             let decodeData = try? PropertyListDecoder().decode(MenuData.self, from: data)
             menuData = decodeData!
-            print(menuData.position)
 
         }
         
-        print(menuData.position)
         tableView.reloadData()
         calView2.reloadData()
                 
@@ -174,7 +172,6 @@ class CheckViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSou
             if menuData.menu2.count == 1{
                 cell.textLabel?.text = "登録なし"
             }else{
-                //print(dayPosiMenu2)
                 cell.textLabel?.text = menuData.menu2[indexPath.row + 1]
             }
         }else if indexPath.section == 2{
