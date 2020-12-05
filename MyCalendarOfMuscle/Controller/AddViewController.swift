@@ -38,6 +38,9 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
     let userDefaults = UserDefaults.standard
     
     var menuData = MenuData()
+    
+    var selectMenuArray = [String]()
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -131,53 +134,107 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         let cell = UITableViewCell(style: .default, reuseIdentifier: "")
         cell.textLabel?.text = menuArray[indexPath.row]
         cell.backgroundColor = .clear
+        cell.accessoryType = .none
         
-        var selectMenuArray = [String]()
-        
-        if menuData.menu1[0] == pushMenu{
-            selectMenuArray.append(contentsOf: menuData.menu1.dropFirst())
-        }else if menuData.menu2[0] == pushMenu{
-            selectMenuArray.append(contentsOf: menuData.menu2.dropFirst())
-        }else if menuData.menu3[0] == pushMenu{
-            selectMenuArray.append(contentsOf: menuData.menu3.dropFirst())
-        }
-        
-        //すでに選択されていたトレーニングに予めチェックマークをつけておく
-        for i in 0..<selectMenuArray.count{
-            if cell.textLabel?.text == selectMenuArray[i]{
-                cell.accessoryType = .checkmark
-                cell.backgroundColor = .clear
-                selectMenu.append((cell.textLabel?.text)!)
+        switch pushMenu {
+        case menuData.menu1[0]:
+            for i in menuData.menu1{
+                if menuArray[indexPath.row] == i{
+                    cell.accessoryType = .checkmark
+                    cell.selectionStyle = .none
+                }
             }
+        case menuData.menu2[0]:
+            for i in menuData.menu2{
+                if menuArray[indexPath.row] == i{
+                    cell.accessoryType = .checkmark
+                    cell.selectionStyle = .none
+                }
+            }
+        case menuData.menu3[0]:
+            for i in menuData.menu3{
+                if menuArray[indexPath.row] == i{
+                    cell.accessoryType = .checkmark
+                    cell.selectionStyle = .none
+                }
+            }
+            
+        default:
+            break
         }
+        
+        
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         let cell = tableView.cellForRow(at: indexPath)
         
         if cell?.accessoryType == .checkmark{
             cell?.accessoryType = .none
             cell?.selectionStyle = .none
-            selectMenu.remove(at: selectMenu.firstIndex(of: (cell?.textLabel?.text)!)!)
+            
+            switch pushMenu {
+            case menuData.menu1[0]:
+                menuData.menu1.remove(at: menuData.menu1.firstIndex(of: (cell?.textLabel?.text)!)!)
+            case menuData.menu2[0]:
+                menuData.menu2.remove(at: menuData.menu1.firstIndex(of: (cell?.textLabel?.text)!)!)
+            case menuData.menu3[0]:
+                menuData.menu3.remove(at: menuData.menu1.firstIndex(of: (cell?.textLabel?.text)!)!)
+            default:
+                break
+            }
         }else{
             cell?.accessoryType = .checkmark
             cell?.selectionStyle = .none
-            selectMenu.append((cell?.textLabel?.text)!)
+            
+            switch pushMenu {
+            case menuData.menu1[0]:
+                menuData.menu1.append((cell?.textLabel?.text)!)
+            case menuData.menu2[0]:
+                menuData.menu2.append((cell?.textLabel?.text)!)
+            case menuData.menu3[0]:
+                menuData.menu3.append((cell?.textLabel?.text)!)
+            default:
+                break
+            }
         }
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
-        
+
         if cell?.accessoryType == .checkmark{
             cell?.accessoryType = .none
             cell?.selectionStyle = .none
-            selectMenu.remove(at: selectMenu.firstIndex(of: (cell?.textLabel?.text)!)!)
+            
+            switch pushMenu {
+            case menuData.menu1[0]:
+                menuData.menu1.remove(at: menuData.menu1.firstIndex(of: (cell?.textLabel?.text)!)!)
+            case menuData.menu2[0]:
+                menuData.menu2.remove(at: menuData.menu1.firstIndex(of: (cell?.textLabel?.text)!)!)
+            case menuData.menu3[0]:
+                menuData.menu3.remove(at: menuData.menu1.firstIndex(of: (cell?.textLabel?.text)!)!)
+            default:
+                break
+            }
+            
         }else{
             cell?.accessoryType = .checkmark
             cell?.selectionStyle = .none
-            selectMenu.append((cell?.textLabel?.text)!)
+            
+            switch pushMenu {
+            case menuData.menu1[0]:
+                menuData.menu1.append((cell?.textLabel?.text)!)
+            case menuData.menu2[0]:
+                menuData.menu2.append((cell?.textLabel?.text)!)
+            case menuData.menu3[0]:
+                menuData.menu3.append((cell?.textLabel?.text)!)
+            default:
+                break
+            }
         }
     }
     
@@ -244,17 +301,6 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
     }
     
     @IBAction func touroku(_ sender: Any) {
-        
-        if menuData.menu1[0] == pushMenu{
-            menuData.menu1.removeSubrange(1..<menuData.menu1.count)
-            menuData.menu1.append(contentsOf: selectMenu)
-        }else if menuData.menu2[0] == pushMenu{
-            menuData.menu2.removeSubrange(1..<menuData.menu2.count)
-            menuData.menu2.append(contentsOf: selectMenu)
-        }else if menuData.menu3[0] == pushMenu{
-            menuData.menu3.removeSubrange(1..<menuData.menu3.count)
-            menuData.menu3.append(contentsOf: selectMenu)
-        }
         
         userDefaults.set(try? PropertyListEncoder().encode(menuData), forKey: selectDay)
         dismiss(animated: true, completion: nil)

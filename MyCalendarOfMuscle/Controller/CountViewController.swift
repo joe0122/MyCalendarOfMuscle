@@ -114,11 +114,14 @@ class CountViewController: UIViewController {
                 if let data = userDefaults.value(forKey: "\(year)/\(month)/0\(i)") as? Data{
                     let decodeData = try? PropertyListDecoder().decode(MenuData.self, from: data)
                     menuData = decodeData!
+                }
             }else{
                 if let data = userDefaults.value(forKey: "\(year)/\(month)/\(i)") as? Data{
                     let decodeData = try? PropertyListDecoder().decode(MenuData.self, from: data)
                     menuData = decodeData!
+                }
             }
+            
                 switch menuData.position.count {
                 case 1:
                     if menuData.position[0] == "腕"{
@@ -175,15 +178,14 @@ class CountViewController: UIViewController {
                 default:
                     break
                 }
-                menuData = MenuData()
+            
+            menuData = MenuData()
+            
             }
-        }
-    }
         posiCount = [udeCount,kataCount,muneCount,haraCount,senakaCount,ashiCount,yuuCount]
 }
     func setPie(position: [String], count: [Double]){
         
-        pieChartView.reloadInputViews()
 
         pieChartView.rotationEnabled = false
         pieChartView.centerText = "腕:\(Int(udeCount))回\n肩:\(Int(kataCount))回\n胸:\(Int(muneCount))回\n腹:\(Int(haraCount))回\n背中:\(Int(senakaCount))回\n脚:\(Int(ashiCount))回\n有酸素:\(Int(yuuCount))回\n合計:\(Int(udeCount + kataCount + muneCount + haraCount + senakaCount + ashiCount + yuuCount))回"
@@ -233,6 +235,7 @@ class CountViewController: UIViewController {
         dataSet.colors = colors
         data.setValueFormatter(DefaultValueFormatter(formatter: formatter))
         pieChartView.data = data
+        
     }
     
 }

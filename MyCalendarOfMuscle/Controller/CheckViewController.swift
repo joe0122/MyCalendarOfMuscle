@@ -102,8 +102,8 @@ class CheckViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSou
         }
         
         dayLabel.text = "\(selectDay)日のトレーニングメニュー"
-        tableView.reloadData()
         calView2.reloadData()
+        tableView.reloadData()
 
     }
     
@@ -116,7 +116,6 @@ class CheckViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSou
         if let data = userDefaults.value(forKey: selectDay) as? Data{
             let decodeData = try? PropertyListDecoder().decode(MenuData.self, from: data)
             menuData = decodeData!
-            print(menuData.position)
 
         }
         dayLabel.text = "\(selectDay)日のトレーニングメニュー"
