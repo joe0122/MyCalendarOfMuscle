@@ -66,63 +66,37 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         tableView.allowsMultipleSelection = true
         
         //日付の表示と部位の部分だけのテキストカラーを変えている
-        if pushMenu == "腕"{
-        traningNameLabel.text = "腕トレのメニュー(\(selectDay.dropFirst(5)))"
-        traningNameLabel.font = UIFont.boldSystemFont(ofSize: 18)
-        let firstText = NSMutableAttributedString(string: traningNameLabel.text!)
-        firstText.addAttribute(.foregroundColor, value: UIColor.systemRed, range: NSMakeRange(0, 1))
-        traningNameLabel.attributedText = firstText
-        
-        }else if pushMenu == "肩"{
-        traningNameLabel.text = "肩トレのメニュー(\(selectDay.dropFirst(5)))"
-        traningNameLabel.font = UIFont.boldSystemFont(ofSize: 18)
-        let firstText = NSMutableAttributedString(string: traningNameLabel.text!)
-        firstText.addAttribute(.foregroundColor, value: UIColor.systemGreen, range: NSMakeRange(0, 1))
-        traningNameLabel.attributedText = firstText
-            
-        }else if pushMenu == "胸"{
-        traningNameLabel.text = "胸トレのメニュー(\(selectDay.dropFirst(5)))"
-        traningNameLabel.font = UIFont.boldSystemFont(ofSize: 18)
-        let firstText = NSMutableAttributedString(string: traningNameLabel.text!)
-        firstText.addAttribute(.foregroundColor, value: UIColor.systemYellow, range: NSMakeRange(0, 1))
-        traningNameLabel.attributedText = firstText
-            
-        }else if pushMenu == "腹"{
-        traningNameLabel.text = "腹トレのメニュー(\(selectDay.dropFirst(5)))"
-        traningNameLabel.font = UIFont.boldSystemFont(ofSize: 18)
-        let firstText = NSMutableAttributedString(string: traningNameLabel.text!)
-        firstText.addAttribute(.foregroundColor, value: UIColor.systemBlue, range: NSMakeRange(0, 1))
-        traningNameLabel.attributedText = firstText
-            
-        }else if pushMenu == "背"{
-        traningNameLabel.text = "背中トレのメニュー(\(selectDay.dropFirst(5)))"
-        traningNameLabel.font = UIFont.boldSystemFont(ofSize: 18)
-        let firstText = NSMutableAttributedString(string: traningNameLabel.text!)
-        firstText.addAttribute(.foregroundColor, value: UIColor.systemPurple, range: NSMakeRange(0, 1))
-        traningNameLabel.attributedText = firstText
-            
-        }else if pushMenu == "脚"{
-        traningNameLabel.text = "脚トレのメニュー(\(selectDay.dropFirst(5)))"
-        traningNameLabel.font = UIFont.boldSystemFont(ofSize: 18)
-        let firstText = NSMutableAttributedString(string: traningNameLabel.text!)
-        firstText.addAttribute(.foregroundColor, value: UIColor.systemTeal, range: NSMakeRange(0, 1))
-        traningNameLabel.attributedText = firstText
-            
-        }else if pushMenu == "有"{
-        //有酸素の場合のみ単位を変更
-        juuryoLabel.text = "距離"
-        setLabel.text = "時間"
-        countLabel.text = "分"
-        
-        traningNameLabel.text = "有酸素のメニュー(\(selectDay.dropFirst(5)))"
-        traningNameLabel.font = UIFont.boldSystemFont(ofSize: 18)
-        let firstText = NSMutableAttributedString(string: traningNameLabel.text!)
-        firstText.addAttribute(.foregroundColor, value: UIColor.systemOrange, range: NSMakeRange(0, 3))
-        traningNameLabel.attributedText = firstText
-        
+        switch pushMenu {
+        case "腕":
+            changeTextColor(position: "腕", color: .systemRed, range: 1)
+        case "肩":
+            changeTextColor(position: "肩", color: .systemGreen, range: 1)
+        case "胸":
+            changeTextColor(position: "胸", color: .systemYellow, range: 1)
+        case "腹":
+            changeTextColor(position: "腹", color: .systemBlue, range: 1)
+        case "背":
+            changeTextColor(position: "背", color: .systemPurple, range: 1)
+        case "脚":
+            changeTextColor(position: "脚", color: .systemTeal, range: 1)
+        case "有":
+            juuryoLabel.text = "距離"
+            setLabel.text = "時間"
+            countLabel.text = "分"
+            changeTextColor(position: "有酸素", color: .systemOrange, range: 3)
+        default:
+            break
         }
     }
     
+    //テキストの色を変える関数
+    func changeTextColor(position:String, color:UIColor, range:Int){
+        traningNameLabel.text = "\(position)トレのメニュー(\(selectDay.dropFirst(5)))"
+        traningNameLabel.font = UIFont.boldSystemFont(ofSize: 18)
+        let firstText = NSMutableAttributedString(string: traningNameLabel.text!)
+        firstText.addAttribute(.foregroundColor, value: color, range: NSMakeRange(0, range))
+        traningNameLabel.attributedText = firstText
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return menuArray.count
@@ -162,9 +136,6 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         default:
             break
         }
-        
-        
-        
         return cell
     }
     
@@ -324,7 +295,6 @@ class AddViewController: UIViewController,UITableViewDelegate,UITableViewDataSou
         tableView.reloadData()
 
     }
-    
     
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

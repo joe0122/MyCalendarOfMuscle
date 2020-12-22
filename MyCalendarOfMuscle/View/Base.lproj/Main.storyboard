@@ -184,8 +184,7 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="ashi" destination="hoF-yK-GR3" id="gzG-YR-daz"/>
-                        <outlet property="cal" destination="GYC-cg-AJq" id="sxD-9D-PEM"/>
-                        <outlet property="calView" destination="GYC-cg-AJq" id="d3U-rC-lNS"/>
+                        <outlet property="calendar" destination="GYC-cg-AJq" id="sxD-9D-PEM"/>
                         <outlet property="hara" destination="Kbz-aE-4oX" id="MjK-ay-RcC"/>
                         <outlet property="kata" destination="0c3-QE-PVH" id="LiV-a0-9Zv"/>
                         <outlet property="mune" destination="m4V-nl-XeK" id="M1v-c9-bQw"/>
@@ -275,7 +274,7 @@
                     </navigationItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="calView2" destination="aQ3-pJ-tpy" id="KOr-eX-GpQ"/>
+                        <outlet property="calendar" destination="aQ3-pJ-tpy" id="KOr-eX-GpQ"/>
                         <outlet property="dayLabel" destination="mEg-OQ-zLB" id="eDL-gV-ykL"/>
                         <outlet property="tableView" destination="yRr-yT-lpS" id="scA-LK-rSI"/>
                     </connections>

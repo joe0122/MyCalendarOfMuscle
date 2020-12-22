@@ -12,8 +12,8 @@ import CalculateCalendarLogic
 
 class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,FSCalendarDelegateAppearance /*GADBannerViewDelegate*/{
     
-    @IBOutlet weak var calView: UIView!
-    @IBOutlet weak var cal: FSCalendar!
+    @IBOutlet weak var calendar: FSCalendar!
+    
     @IBOutlet weak var ude: UIButton!
     @IBOutlet weak var kata: UIButton!
     @IBOutlet weak var mune: UIButton!
@@ -38,16 +38,13 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
     
     let searchModel = SearchModel()
     
+    let calendarTextJP = CalendarTextJP()
+    let calendarHoliday = CalendarHoliDayJP()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //ライトモードのみにする
         self.overrideUserInterfaceStyle = .light
-        
-        //ナビゲーションバーの詳細
-        navigationController?.navigationBar.barTintColor = .systemOrange
-        navigationController?.navigationBar.tintColor = .white
-        navigationController?.navigationBar.barStyle = .black
-        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
         
         //ボタンを丸にして影をつける
         ButtuonShadow(position: ude)
@@ -63,26 +60,10 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
         formatter.timeStyle = .none
         selectDay = formatter.string(from: today)
         
-        cal.dataSource = self
-        cal.delegate = self
+        calendar.dataSource = self
+        calendar.delegate = self
         
-        //曜日のラベルを日本語表記に
-        cal.calendarWeekdayView.weekdayLabels[0].text = "日"
-        cal.calendarWeekdayView.weekdayLabels[1].text = "月"
-        cal.calendarWeekdayView.weekdayLabels[2].text = "火"
-        cal.calendarWeekdayView.weekdayLabels[3].text = "水"
-        cal.calendarWeekdayView.weekdayLabels[4].text = "木"
-        cal.calendarWeekdayView.weekdayLabels[5].text = "金"
-        cal.calendarWeekdayView.weekdayLabels[6].text = "土"
-        
-        //曜日のラベルの色を変更(平日を黒、土曜を青、日曜を赤)
-        cal.calendarWeekdayView.weekdayLabels[0].textColor = UIColor.red
-        cal.calendarWeekdayView.weekdayLabels[1].textColor = UIColor.black
-        cal.calendarWeekdayView.weekdayLabels[2].textColor = UIColor.black
-        cal.calendarWeekdayView.weekdayLabels[3].textColor = UIColor.black
-        cal.calendarWeekdayView.weekdayLabels[4].textColor = UIColor.black
-        cal.calendarWeekdayView.weekdayLabels[5].textColor = UIColor.black
-        cal.calendarWeekdayView.weekdayLabels[6].textColor = UIColor.blue
+        calendarTextJP.calendarTextJP(calendar: calendar)
         
     }
     
@@ -128,6 +109,11 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
     }
     
     
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
+        //祝日や土日の色を変更
+        return calendarHoliday.calendar(calendar, appearance: appearance, titleDefaultColorFor: date)
+
+    }
     
     func calendar(_ calendar: FSCalendar, imageFor date: Date) -> UIImage? {
         
@@ -157,6 +143,7 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
         
         menuData = MenuData()
         
+        //Data型をuserdefaultsに入れているので、デコードして型を元に戻す。
         if let data = userDefaults.value(forKey: "\(selectDay)") as? Data{
             let decodeData = try? PropertyListDecoder().decode(MenuData.self, from: data)
             menuData = decodeData!
@@ -171,7 +158,7 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
         case 1:
             //その日付のトレーニングにタップしたトレーニングが既にあるか
             if menuData.position.contains(position){
-                HensyuOrTorikeshi(position: position)
+                hensyuOrTorikeshi(position: position)
             }else{
                 menuData.position.append(position)
                 menuData.menu2.append(position)
@@ -179,7 +166,7 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
             }
         case 2:
             if menuData.position.contains(position){
-                HensyuOrTorikeshi(position: position)
+                hensyuOrTorikeshi(position: position)
             }else{
                 menuData.position.append(position)
                 menuData.menu3.append(position)
@@ -187,7 +174,7 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
             }
         case 3:
             if menuData.position.contains(position){
-                HensyuOrTorikeshi(position: position)
+                hensyuOrTorikeshi(position: position)
             }else{
                 Alert()
             }
@@ -196,7 +183,7 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
         }
         saveDB()
         addTable.menuData = menuData
-        cal.reloadData()
+        calendar.reloadData()
         }
     
     
@@ -218,7 +205,7 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
     }
     
     
-    func HensyuOrTorikeshi(position:String){
+    func hensyuOrTorikeshi(position:String){
         
         let addTable = self.storyboard?.instantiateViewController(withIdentifier: "addTable") as! AddViewController
         
@@ -237,7 +224,7 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
             }
             
             self.saveDB()
-            self.cal.reloadData()
+            self.calendar.reloadData()
         })
         
         let action2 = UIAlertAction(title: "編集", style: UIAlertAction.Style.default, handler: {
@@ -256,66 +243,7 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
     
     @IBAction func backNow(_ sender: Any) {
         //今日の日付にジャンプ
-        cal.currentPage = today
-    }
-    
-   
-    //カレンダーの休日判定↓
-
-    fileprivate let gregorian: Calendar = Calendar(identifier: .gregorian)
-    fileprivate lazy var dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        return formatter
-    }()
-
-    // 祝日判定を行い結果を返すメソッド(True:祝日)
-    func judgeHoliday(_ date : Date) -> Bool {
-        //祝日判定用のカレンダークラスのインスタンス
-        let tmpCalendar = Calendar(identifier: .gregorian)
-
-        // 祝日判定を行う日にちの年、月、日を取得
-        let year = tmpCalendar.component(.year, from: date)
-        let month = tmpCalendar.component(.month, from: date)
-        let day = tmpCalendar.component(.day, from: date)
-
-        // CalculateCalendarLogic()：祝日判定のインスタンスの生成
-        let holiday = CalculateCalendarLogic()
-
-        return holiday.judgeJapaneseHoliday(year: year, month: month, day: day)
-    }
-    // date型 -> 年月日をIntで取得
-    func getDay(_ date:Date) -> (Int,Int,Int){
-        let tmpCalendar = Calendar(identifier: .gregorian)
-        let year = tmpCalendar.component(.year, from: date)
-        let month = tmpCalendar.component(.month, from: date)
-        let day = tmpCalendar.component(.day, from: date)
-        return (year,month,day)
-    }
-
-    //曜日判定(日曜日:1 〜 土曜日:7)
-    func getWeekIdx(_ date: Date) -> Int{
-        let tmpCalendar = Calendar(identifier: .gregorian)
-        return tmpCalendar.component(.weekday, from: date)
-    }
-
-    // 土日や祝日の日の文字色を変える
-    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
-        //祝日判定をする（祝日は赤色で表示する）
-        if self.judgeHoliday(date){
-            return UIColor.red
-        }
-
-        //土日の判定を行う（土曜日は青色、日曜日は赤色で表示する）
-        let weekday = self.getWeekIdx(date)
-        if weekday == 1 {   //日曜日
-            return UIColor.red
-        }
-        else if weekday == 7 {  //土曜日
-            return UIColor.blue
-        }
-
-        return nil
+        calendar.currentPage = today
     }
 }
 
